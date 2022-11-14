@@ -71,7 +71,3 @@ export const userChangePassword = async (req, res) => {
     return res.status(400).json({ msg: e.message });
   }
 };
-
-export const userLogout = (req, res) => {
-  return res.json({ msg: 'Logout succeded' });
-};
