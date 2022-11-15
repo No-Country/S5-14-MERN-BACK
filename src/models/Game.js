@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const review = mongoose.schema(
+const review = mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
@@ -30,7 +30,7 @@ const gameSchema = mongoose.Schema(
       type: String,
       require: true,
     },
-    devides: {
+    devices: {
       type: [String],
     },
     categories: {
@@ -51,4 +51,5 @@ const gameSchema = mongoose.Schema(
 );
 
 const Game = mongoose.model('Game', gameSchema);
+
 export default Game;
