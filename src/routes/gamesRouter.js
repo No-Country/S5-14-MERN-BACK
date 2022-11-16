@@ -1,14 +1,15 @@
 import express from "express";
-import { findAllGames, findGameById } from "../controllers/gamesController.js";
+import { createNewGame, findAllGames, findGameById, modifyExistingGame } from "../controllers/gamesController.js";
 import checkAuth from "../middlewares/checkAuth.js";
 
 const gamesRouter = express.Router();
 
 gamesRouter.route("/")
     .get(findAllGames)
-    // .post(checkAuth,);
+    .post(checkAuth, createNewGame);
 
-gamesRouter.route("/:id").get(findGameById);
+gamesRouter.route("/:id").get(findGameById)
+    .put(checkAuth, modifyExistingGame);
 
 
 export default gamesRouter;
