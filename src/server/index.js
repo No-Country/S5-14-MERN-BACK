@@ -9,7 +9,7 @@ import authRouter from "../routes/authRouter.js";
 const server = express();
 server.use(express.json());
 
-app.use(
+server.use(
   cors({
     origin: "http://localhost:5173"
   })
@@ -18,6 +18,8 @@ app.use(
 connectDB();
 
 server.use(helmet());
+
+// CORS authorisation
 
 server.use("/api/users", usersRouter);
 server.use("/api/auth", authRouter);
