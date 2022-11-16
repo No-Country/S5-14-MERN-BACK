@@ -1,9 +1,6 @@
 import server from "./src/server/index.js";
-
-// Only load dotenv if we are in developement mode
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
-}
+import dotenv from "dotenv";
+dotenv.config();
 
 const PORT = process.env.PORT || 8000;
 
