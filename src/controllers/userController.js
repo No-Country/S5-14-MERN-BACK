@@ -55,3 +55,35 @@ export const userDelete = async (req, res) => {
     return res.status(400).json({ msg: error.message });
   }
 };
+
+export const addFriend = async (req, res) => {
+  const { id } = req.body;
+  try {
+    const user = await User.findById(id);
+    if (!user) {
+      const error = new Error('User not found');
+      return res.status(400).json({ msg: error.message });
+    }
+    user.friends.push(req.params.id);
+    await user.save();
+    return res.json({ msg: 'friend added' });
+  } catch (e) {
+    return res.status(500).json({ msg: e.message });
+  }
+};
+
+export const addFavorite = async (req, res) => {
+  const { id } = req.body;
+  try {
+    const user = await User.findById(id);
+    if (!user) {
+      const error = new Error('User not found');
+      return res.status(400).json({ msg: error.message });
+    }
+    user.favorites.push(req.params.id);
+    await user.save();
+    return res.json({ msg: 'favorite game added' });
+  } catch (e) {
+    return res.status(500).json({ msg: e.message });
+  }
+};

@@ -3,6 +3,8 @@ import {
   userProfile,
   userUpdate,
   userDelete,
+  addFriend,
+  addFavorite,
 } from '../controllers/userController.js';
 import checkAuth from '../middlewares/checkAuth.js';
 
@@ -13,5 +15,8 @@ usersRouter
   .get(checkAuth, userProfile)
   .put(checkAuth, userUpdate)
   .delete(checkAuth, userDelete);
+
+usersRouter.post('/addFriend/:id', addFriend);
+usersRouter.post('/addFavorite/:id', addFavorite);
 
 export default usersRouter;

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const review = mongoose.schema(
+const review = mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,

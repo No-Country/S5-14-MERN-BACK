@@ -8,7 +8,7 @@ import checkAuth from '../middlewares/checkAuth.js';
 
 const authRouter = express.Router();
 
-authRouter.route('/register').post(userRegister);
+authRouter.route('/signup').post(userRegister);
 authRouter.route('/login').post(userLogin);
 authRouter.route('/changePassword/:id').post(checkAuth, userChangePassword);
 

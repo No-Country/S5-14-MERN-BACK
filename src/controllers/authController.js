@@ -2,6 +2,7 @@ import jwtGenerate from '../helpers/jwtGenerator.js';
 import User from '../models/User.js';
 
 export const userRegister = async (req, res) => {
+  console.log('first');
   const { email, username, password } = req.body;
   if (!email || !username || !password) {
     const error = new Error('Some value is missing');
@@ -29,22 +30,16 @@ export const userRegister = async (req, res) => {
 export const userLogin = async (req, res) => {
   const { email, password } = req.body;
   try {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email })
+      // .populate('friends');
+      .populate('favorites');
     if (!user || !(await user.checkPassword(password))) {
       const error = new Error('Email or password is incorrect');
       return res.status(400).json({ msg: error.message });
     }
     const jwt = jwtGenerate(user._id, user.admin);
-    const response = {
-      id: user._id,
-      userName: user.userName,
-      email: user.email,
-      admin: user.admin,
-      avatar: user.avatar,
-      friends: user.friends,
-      favorites: user.favorites,
-    };
-    return res.json({ user: response, auth: jwt });
+
+    return res.json({ user: user, auth: jwt });
   } catch (error) {
     return res.status(400).json({ msg: error.message });
   }
