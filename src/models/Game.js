@@ -30,7 +30,7 @@ const gameSchema = mongoose.Schema(
       type: String,
       require: true,
     },
-    devides: {
+    devices: {
       type: [String],
     },
     categories: {
@@ -51,4 +51,5 @@ const gameSchema = mongoose.Schema(
 );
 
 const Game = mongoose.model('Game', gameSchema);
+
 export default Game;
