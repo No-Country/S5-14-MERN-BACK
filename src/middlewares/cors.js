@@ -4,6 +4,7 @@ const cors = (req, res, next) => {
   if (process.env.ORIGINS_ALLOWED.includes(origin)) {
     res.setHeader("Access-Control-Allow-Origin", origin);
     res.header("Access-Control-Allow-Credentials", true);
+    console.log("origin", origin);
   }
 
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
