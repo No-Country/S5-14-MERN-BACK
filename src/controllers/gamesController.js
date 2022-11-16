@@ -19,20 +19,65 @@ export const findGameById = async (req, res) => {
     return res.status(200).json({ game: foundGame });
 }
 
-// export const createNewGame = async (req, res) => {
-//     const { name, description, devices, imagePath, categories } = req.body;
-//     const { admin } = req;
+export const createNewGame = async (req, res) => {
 
-//     if (!admin) return res.status(401).json({ msg: "Unathorized User" });
+    const { name, description, devices, imagePath, categories } = req.body;
+    const { admin } = req;
 
-//     if (!name || !description || !imagePath) return res.status(400).json({ msg: "Missing relevant values" });
+    if (!admin) return res.status(401).json({ msg: "Unathorized User" });
 
-//     const newGame = new Game({
-//         name,
-//         description,
-//         devices,
-//         imagePath,
-//         categories
-//     })
+    const existingGame = await Game.find({ name });
 
-// }
+    console.log(existingGame);
+
+    if (existingGame.length !== 0) return res.status(400).json({ msg: "The game's name already exist in the Database" });
+
+    if (!name || !description || !imagePath) return res.status(400).json({ msg: "Missing relevant values" });
+    try {
+        const newGame = new Game({
+            name,
+            description,
+            devices,
+            imagePath,
+            categories
+        });
+
+        const savedGame = await newGame.save();
+
+        return res.status(200).json({ game: savedGame });
+
+    } catch (error) {
+        return res.status(500).json({ msg: "We had an error please try again later" });
+    }
+
+}
+
+export const modifyExistingGame = async (req, res) => {
+    const { id } = req.params;
+    const { name, description, devices, imagePath, categories } = req.body;
+    const { admin } = req;
+
+    if (!admin) return res.status(401).json({ msg: "Unathorized User" });
+
+    const existingGame = await Game.findById(id);
+
+    if (!existingGame) return res.status(400).json({ msg: "There's no registered game with the ID received" });
+
+    try {
+        //Update the game's information if exists.
+
+        if (name) existingGame.name = name;
+        if (description) existingGame.description = description;
+        if (devices) existingGame.devices = devices;
+        if (imagePath) existingGame.imagePath = imagePath;
+        if (categories) existingGame.categories = categories;
+
+        const updatedGame = await existingGame.save();
+
+        return res.status(200).json({ game: updatedGame });
+
+    } catch (error) {
+        return res.status(500).json({ msg: "We had an error please try again later" });
+    }
+
+}
