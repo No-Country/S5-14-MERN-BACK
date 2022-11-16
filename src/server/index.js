@@ -24,7 +24,11 @@ server.use(express.json());
 
 //server.use(cors({ origin: corsOptionsDelegate }));
 server.use(
-  cors({ origin: ["http://localhost:5173/", "http://localhost:5173", "http://127.0.0.1:5173"] })
+  cors({
+    origin: ["http://localhost:5173/", "http://localhost:5173", "http://127.0.0.1:5173"],
+    optionsSuccessStatus: 200,
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE"
+  })
 );
 
 connectDB();
