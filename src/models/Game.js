@@ -50,6 +50,10 @@ const gameSchema = mongoose.Schema(
   }
 );
 
+gameSchema.statics.deleteById = function(id) {
+  return this.deleteOne({ _id: id })
+}
+
 const Game = mongoose.model('Game', gameSchema);
 
 export default Game;

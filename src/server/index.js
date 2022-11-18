@@ -4,7 +4,7 @@ import helmet from 'helmet';
 import connectDB from '../config/db.js';
 import usersRouter from '../routes/userRouter.js';
 import authRouter from '../routes/authRouter.js';
-import gameRoutes from '../routes/gamesRouter.js';
+import gameRoutes from '../routes/gamesRoutes.js';
 
 
 const server = express();
