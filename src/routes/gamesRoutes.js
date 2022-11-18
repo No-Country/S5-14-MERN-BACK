@@ -1,5 +1,5 @@
 import express from "express";
-import { createNewGame, findAllGames, findGameById, modifyExistingGame } from "../controllers/gamesController.js";
+import { createNewGame, eliminateGame, findAllGames, findGameById, modifyExistingGame } from "../controllers/gamesController.js";
 import checkAuth from "../middlewares/checkAuth.js";
 
 const gamesRouter = express.Router();
@@ -9,7 +9,7 @@ gamesRouter.route("/")
     .post(checkAuth, createNewGame);
 
 gamesRouter.route("/:id").get(findGameById)
-    .put(checkAuth, modifyExistingGame);
-
+    .put(checkAuth, modifyExistingGame)
+    .delete(checkAuth, eliminateGame);
 
 export default gamesRouter;
