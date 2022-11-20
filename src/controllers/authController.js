@@ -2,7 +2,6 @@ import jwtGenerate from "../helpers/jwtGenerator.js";
 import User from "../models/User.js";
 
 export const userRegister = async (req, res) => {
-  console.log("first");
   const { email, username, password } = req.body;
   if (!email || !username || !password) {
     const error = new Error("Some value is missing");
@@ -23,7 +22,7 @@ export const userRegister = async (req, res) => {
     await newUser.save();
     return res.status(201).json({ msg: "User created" });
   } catch (error) {
-    return res.status(400).json({ msg: error.message });
+    return res.status(500).json({ msg: error.message });
   }
 };
 
@@ -31,17 +30,19 @@ export const userLogin = async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await User.findOne({ email })
+      .select("-createdAt -updatedAt")
       .populate("friends", "_id username avatar")
       .populate("favorites", "_id name votes reviews imagePath");
+
     if (!user || !(await user.checkPassword(password))) {
       const error = new Error("Email or password is incorrect");
-      return res.status(400).json({ msg: error.message });
+      return res.status(404).json({ msg: error.message });
     }
     const jwt = jwtGenerate(user._id, user.admin);
 
-    return res.json({ user: user, auth: jwt });
+    return res.json({ user: { ...user._doc, password: "" }, auth: jwt });
   } catch (error) {
-    return res.status(400).json({ msg: error.message });
+    return res.status(500).json({ msg: error.message });
   }
 };
 
@@ -63,6 +64,6 @@ export const userChangePassword = async (req, res) => {
       return res.status(400).json({ msg: error.message });
     }
   } catch (e) {
-    return res.status(400).json({ msg: e.message });
+    return res.status(500).json({ msg: e.message });
   }
 };
