@@ -49,7 +49,7 @@ Puedes encontrar nuestra API en el siguiente link: [click aquí](#)
 
 ## Back - End 🚀
 
-### Javier Moron: [LinkedIn]() | [GitHub]() | [Portfolio]()
+### Javier Moron: [LinkedIn](https://www.linkedin.com/in/javier-alberto-moron-de-oliveira-a7504218a/) | [GitHub](https://github.com/requin883) | [Portfolio]()
 
 ### Maria Villen [LinkedIn]() | [GitHub]() | [Portfolio]()
 
