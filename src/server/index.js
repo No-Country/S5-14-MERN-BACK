@@ -5,6 +5,7 @@ import connectDB from "../config/db.js";
 import usersRouter from "../routes/userRouter.js";
 import authRouter from "../routes/authRouter.js";
 import gameRoutes from "../routes/gamesRoutes.js";
+import scoreRouter from "../routes/scoreRouter.js";
 
 const server = express();
 server.use(express.json());
@@ -23,5 +24,6 @@ server.use(helmet());
 server.use("/api/users", usersRouter);
 server.use("/api/auth", authRouter);
 server.use("/api/games", gameRoutes);
+server.use("/api/scores", scoreRouter);
 
 export default server;
