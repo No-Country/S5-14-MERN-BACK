@@ -1,17 +1,18 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const PhraseSchema = mongoose.Schema(
   {
     phrase: {
       type: String,
       require: true,
-    },
+      trim: true
+    }
   },
   {
     timestamps: true,
-    versionKey: false,
+    versionKey: false
   }
 );
 
-const Phrase = mongoose.model('Phrase', PhraseSchema);
+const Phrase = mongoose.model("Phrase", PhraseSchema);
 export default Phrase;

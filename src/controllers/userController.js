@@ -1,22 +1,75 @@
-import jwtGenerate from '../helpers/jwtGenerator.js';
-import User from '../models/User.js';
+import User from "../models/User.js";
+
+export const getAllUsers = async (req, res) => {
+  try {
+    const allUsers = await User.find()
+      .select("-password -email -createdAt -updatedAt")
+      .populate("friends", "_id username avatar")
+      .populate("favorites", "_id name votes reviews imagePath");
+    if (allUsers.length <= 0) {
+      const error = new Error("There are not users in the database");
+      return res.status(400).json({ msg: error.message });
+    }
+    return res.json({ users: allUsers });
+  } catch (err) {
+    return res.status(500).json({ msg: err.message });
+  }
+};
+
+export const getAllUsersAdmin = async (req, res) => {
+  const { admin } = req;
+  if (!admin) {
+    const error = new Error("User not authenticated");
+    return res.status(400).json({ msg: error.message });
+  }
+  try {
+    const allUsers = await User.find()
+      .select("-password -createdAt -updatedAt")
+      .populate("friends", "_id username avatar")
+      .populate("favorites", "_id name votes reviews imagePath");
+    if (allUsers.length <= 0) {
+      const error = new Error("There are not users in the database");
+      return res.status(400).json({ msg: error.message });
+    }
+    return res.json({ users: allUsers });
+  } catch (err) {
+    return res.status(500).json({ msg: err.message });
+  }
+};
+
+export const getUser = async (req, res) => {
+  const { id } = req.params;
+  console.log(id);
+  try {
+    const user = await User.findById(id)
+      .select("-password -email -admin -createdAt -updatedAt")
+      .populate("friends", "_id username avatar")
+      .populate("favorites", "_id name votes reviews imagePath");
+    if (!user) {
+      const error = new Error("User not found");
+      return res.status(404).json({ msg: error.message });
+    }
+    return res.json({ user });
+  } catch (err) {
+    return res.status(500).json({ msg: err.message });
+  }
+};
 
 export const userProfile = async (req, res) => {
   const { id } = req.params;
+  const { userID, admin } = req;
 
   try {
-    if (req.userID === id || req.admin) {
-      const user = await User.findById(req.userID).select(
-        '-password -createdAt -updatedAt'
-      );
+    if (userID === id || admin) {
+      const user = await User.findById(req.userID).select("-password -createdAt -updatedAt");
 
       if (!user) {
-        const error = new Error('User not found');
+        const error = new Error("User not found");
         return res.status(400).json({ msg: error.message });
       }
       return res.json(user);
     } else {
-      const error = new Error('User not authenticated');
+      const error = new Error("User not authenticated");
       return res.status(400).json({ msg: error.message });
     }
   } catch (e) {
@@ -26,14 +79,15 @@ export const userProfile = async (req, res) => {
 
 export const userUpdate = async (req, res) => {
   const { id } = req.params;
+  const { userID } = req;
   try {
-    if (id === req.userID) {
+    if (id === userID) {
       const updatedUser = await User.findByIdAndUpdate(req.userID, req.body, {
-        new: true,
-      }).select('-password -createdAt -updatedAt');
+        new: true
+      }).select("-password -createdAt -updatedAt");
       return res.json(updatedUser);
     } else {
-      const error = new Error('User not authenticated');
+      const error = new Error("User not authenticated");
       return res.status(400).json({ msg: error.message });
     }
   } catch (e) {
@@ -46,9 +100,9 @@ export const userDelete = async (req, res) => {
   try {
     if (id === req.userID || req.admin) {
       await User.findByIdAndDelete(req.userID);
-      return res.json({ msg: 'User deleted' });
+      return res.json({ msg: "User deleted" });
     } else {
-      const error = new Error('User not authenticated');
+      const error = new Error("User not authenticated");
       return res.status(400).json({ msg: error.message });
     }
   } catch (e) {

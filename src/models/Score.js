@@ -1,26 +1,26 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const scoreSchema = mongoose.Schema(
   {
     userId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-      require: true,
+      ref: "User",
+      require: true
     },
     game: {
       type: String,
-      require: true,
+      require: true
     },
     score: {
       type: Number,
-      require: true,
-    },
+      require: true
+    }
   },
   {
     timestamps: true,
-    versionKey: false,
+    versionKey: false
   }
 );
 
-const Score = mongoose.model('Score', scoreSchema);
+const Score = mongoose.model("Score", scoreSchema);
 export default Score;
