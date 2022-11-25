@@ -6,6 +6,8 @@ import connectDB from "../config/db.js";
 import usersRouter from "../routes/userRouter.js";
 import authRouter from "../routes/authRouter.js";
 import gameRoutes from "../routes/gamesRoutes.js";
+import upload from "../middlewares/cloudinary";
+import fs from "fs";
 
 // Node 14 path import
 import path from "path";
@@ -29,7 +31,7 @@ server.use(helmet());
 server.use("/api/users", usersRouter);
 server.use("/api/auth", authRouter);
 server.use("/api/games", gameRoutes);
-
+server.use("api/images", upload.array("image"), imagesRouter);
 // Images Fixed Route
 server.use("/images", express.static(path.join(__dirname, "images")));
 
