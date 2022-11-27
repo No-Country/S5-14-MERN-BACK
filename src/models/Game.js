@@ -42,7 +42,10 @@ const gameSchema = mongoose.Schema(
       type: Number,
       default: 0,
     },
-    comingSoon: Boolean,
+    comingSoon: {
+      type: Boolean,
+      default: false
+    },
     reviews: {
       type: [review],
     },
