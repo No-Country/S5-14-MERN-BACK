@@ -21,11 +21,21 @@ server.use(express.json());
 server.use(express.urlencoded({ extended: false }));
 
 // CORS authorisation
-server.use(
-  cors({
-    origin: "http://localhost:5173"
-  })
-);
+var corsOptionsDelegate = {
+  origins: function (req, callback) {
+    var corsOptions;
+    if (process.env.ORIGINS_ALLOWED.indexOf(req.header("Origin")) !== -1) {
+      corsOptions = { origin: true }; // reflect (enable) the requested origin in the CORS response
+    } else {
+      corsOptions = { origin: false }; // disable CORS for this request
+    }
+    callback(null, corsOptions); // callback expects two parameters: error and options
+  },
+  optionsSuccessStatus: 200,
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE"
+};
+
+server.use(cors({ origin: corsOptionsDelegate }));
 
 connectDB();
 
