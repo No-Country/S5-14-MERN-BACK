@@ -7,6 +7,8 @@ import usersRouter from "../routes/userRouter.js";
 import authRouter from "../routes/authRouter.js";
 import gameRoutes from "../routes/gamesRoutes.js";
 import upload from "../middlewares/cloudinary";
+import scoreRouter from "../routes/scoreRouter.js";
+import categoryRouter from "../routes/categoryRouter.js";
 import fs from "fs";
 
 // Node 14 path import
@@ -31,6 +33,8 @@ server.use(helmet());
 server.use("/api/users", usersRouter);
 server.use("/api/auth", authRouter);
 server.use("/api/games", gameRoutes);
+server.use("/api/scores", scoreRouter);
+server.use("/api/categories", categoryRouter);
 server.use("api/images", upload.array("image"), imagesRouter);
 // Images Fixed Route
 server.use("/images", express.static(path.join(__dirname, "images")));
