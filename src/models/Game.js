@@ -33,13 +33,16 @@ const gameSchema = mongoose.Schema(
     devices: {
       type: [String],
     },
-    categories: {
-      type: [String],
+    audience: {
+      type: String,
+      enum: ["TP", "+3", "+7"],
+      default: "TP"
     },
     votes: {
       type: Number,
       default: 0,
     },
+    comingSoon: Boolean,
     reviews: {
       type: [review],
     },
@@ -50,7 +53,7 @@ const gameSchema = mongoose.Schema(
   }
 );
 
-gameSchema.statics.deleteById = function(id) {
+gameSchema.statics.deleteById = function (id) {
   return this.deleteOne({ _id: id })
 }
 
