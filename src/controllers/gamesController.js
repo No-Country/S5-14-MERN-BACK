@@ -30,7 +30,7 @@ export const findGameById = async (req, res) => {
 };
 
 export const createNewGame = async (req, res) => {
-  const { name, description, devices, imagePath, categories } = req.body;
+  const { name, description, devices, imagePath, audience } = req.body;
   const { admin } = req;
 
   if (!admin) return res.status(401).json({ msg: "Unathorized User" });
@@ -48,7 +48,7 @@ export const createNewGame = async (req, res) => {
       description,
       devices,
       imagePath,
-      categories
+      audience
     });
 
     const savedGame = await newGame.save();
@@ -61,7 +61,7 @@ export const createNewGame = async (req, res) => {
 
 export const modifyExistingGame = async (req, res) => {
   const { id } = req.params;
-  const { name, description, devices, imagePath, categories } = req.body;
+  const { name, description, devices, imagePath, audience } = req.body;
   const { admin } = req;
 
   if (!validateId(id)) return res.status(400).json({ msg: "The Id is not a valid ID" });
@@ -80,7 +80,7 @@ export const modifyExistingGame = async (req, res) => {
     if (description) existingGame.description = description;
     if (devices) existingGame.devices = devices;
     if (imagePath) existingGame.imagePath = imagePath;
-    if (categories) existingGame.categories = categories;
+    if (audience) existingGame.audience = audience;
 
     const updatedGame = await existingGame.save();
 
