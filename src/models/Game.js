@@ -1,14 +1,14 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const review = mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+      ref: "User"
     },
     stars: {
-      type: Number,
-    },
+      type: Number
+    }
   },
   { _id: false }
 );
@@ -19,41 +19,41 @@ const gameSchema = mongoose.Schema(
       type: String,
       require: true,
       unique: true,
-      trim: true,
+      trim: true
     },
     description: {
       type: String,
       require: true,
-      trim: true,
+      trim: true
     },
-    imagePath: {
-      type: String,
-      require: true,
+    cover: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Image"
     },
     devices: {
-      type: [String],
+      type: [String]
     },
-    categories: {
-      type: [String],
+    audiencies: {
+      type: String
     },
-    votes: {
-      type: Number,
-      default: 0,
+    coming_soon: {
+      type: Boolean,
+      default: true
     },
     reviews: {
-      type: [review],
-    },
+      type: [review]
+    }
   },
   {
     timestamps: true,
-    versionKey: false,
+    versionKey: false
   }
 );
 
-gameSchema.statics.deleteById = function(id) {
-  return this.deleteOne({ _id: id })
-}
+gameSchema.statics.deleteById = function (id) {
+  return this.deleteOne({ _id: id });
+};
 
-const Game = mongoose.model('Game', gameSchema);
+const Game = mongoose.model("Game", gameSchema);
 
 export default Game;

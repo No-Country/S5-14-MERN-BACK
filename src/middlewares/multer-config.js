@@ -1,18 +1,15 @@
-const multer = require("multer");
+import multer from "multer";
+// Node 14 path import
+import path from "path";
+const __dirname = path.resolve();
 
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
-    if (file.fieldname === "avatar") {
-      callback(null, "images/persons");
-    } else if (file.fieldname === "games") {
-      callback(null, "images/games");
-    } else {
-      callback(null, "images/others");
-    }
+    callback(null, path.join(__dirname, "src/images"));
   },
   filename: (req, file, callback) => {
     const name = file.originalname.split(" ").join("_");
-    callback(null, Date.now() + "-" + name);
+    callback(null, new Date().toISOString().replace(/:/g, "-") + name);
   }
 });
 
@@ -34,4 +31,4 @@ const fileFilter = (req, file, cb) => {
 
 const upload = multer({ storage: storage, fileFilter: fileFilter });
 
-module.exports = upload;
+export default upload;

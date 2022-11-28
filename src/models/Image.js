@@ -1,25 +1,25 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const imageSchema = mongoose.Schema(
   {
-    imageID: {
+    id: {
       type: String,
-      require: true,
+      require: true
     },
-    imagePath: {
+    path: {
       type: String,
-      require: true,
+      require: true
     },
     alternativeText: {
       type: String,
-      require: true,
-    },
+      require: true
+    }
   },
   {
     timestamps: true,
-    versionKey: false,
+    versionKey: false
   }
 );
 
-const Image = mongoose.model('Image', imageSchema);
+const Image = mongoose.model("Image", imageSchema);
 export default Image;

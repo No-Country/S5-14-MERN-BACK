@@ -1,5 +1,8 @@
 import Game from "../models/Game.js";
 import validateId from "../helpers/idValidator.js";
+import { default as cloudinary } from "../helpers/cloudinary.js";
+import { addImage } from "./imagesController.js";
+import { default as deleteFilefromFS } from "../helpers/fileManager.js";
 
 export const findAllGames = async (req, res) => {
   try {
@@ -30,31 +33,55 @@ export const findGameById = async (req, res) => {
 };
 
 export const createNewGame = async (req, res) => {
-  const { name, description, devices, imagePath, categories } = req.body;
+  console.log("create new game", req.file);
+  const { name, description, devices, audiencies, coming_soon } = req.body;
   const { admin } = req;
+  const imagefile = req.file.path;
 
-  if (!admin) return res.status(401).json({ msg: "Unathorized User" });
+  if (!admin) {
+    if (req.file) await deleteFilefromFS(imagefile, req);
+    return res.status(401).json({ msg: "Unathorized User" });
+  }
 
   const existingGame = await Game.find({ name });
 
-  if (existingGame.length !== 0)
+  if (existingGame.length !== 0) {
+    if (req.file) await deleteFilefromFS(imagefile, req);
     return res.status(400).json({ msg: "The game's name already exist in the Database" });
+  }
 
-  if (!name || !description || !imagePath)
+  if (!name || !description || !req.file) {
+    if (req.file) await deleteFilefromFS(imagefile, req);
     return res.status(400).json({ msg: "Missing relevant values" });
+  }
   try {
-    const newGame = new Game({
-      name,
-      description,
-      devices,
-      imagePath,
-      categories
-    });
+    // create new image in cloudinary
+    if (!req.file) {
+      res.status(400).json({ message: "Not uploaded Files" });
+    } else {
+      const result = await addImage(
+        req,
+        `${name.trim().replace(/:/g, "-").replace(" ", "_")}-cover`,
+        `Foto del juego ${name}`
+      );
+      console.log("imagen: ", result);
+      if (result) {
+        const newGame = new Game({
+          name,
+          description,
+          devices,
+          audiencies,
+          coming_soon,
+          cover: result
+        });
 
-    const savedGame = await newGame.save();
-
-    return res.status(200).json({ game: savedGame });
+        const savedGame = await newGame.save();
+        return res.status(200).json({ game: savedGame });
+      }
+    }
   } catch (error) {
+    console.log(error);
+    if (req.file) await deleteFilefromFS(imagefile, req);
     return res.status(500).json({ msg: "We had an error please try again later" });
   }
 };

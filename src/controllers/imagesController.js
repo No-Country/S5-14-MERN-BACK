@@ -1,5 +1,6 @@
-import Image from "../models/Image";
+import Image from "../models/Image.js";
 import { v2 as cloudinary } from "cloudinary";
+import { default as deleteFilefromFS } from "../helpers/fileManager.js";
 
 export const imageGet = async (req, res) => {
   console.log(req);
@@ -12,48 +13,35 @@ export const imageGetById = async (req, res) => {
   res.status(200).json({ message: "Images GetById" });
 };
 
-export const imageAdd = async (req, res) => {
-  if (req.files.image.ws.bytesWritten === 0) {
-    res.status(400).json({ message: "Not uploaded Files" });
-  }
+export const imageAdd = async (req, res) => {};
+// multiple images
+//   try {
+//     const files = req.files;
+//     const images = [];
+//     for (const file of files) {
+//       addImage(req, file, `$`)
+//       ulrs.push(newPath);
+//       fs.unlinkSync(path);
+//     }
+//     res.status(200).json({ message: "Images uploaded successfully", data: urls });
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).json({ message: "Error uploading images" });
+//   }
+// };
 
-  //One Image
-  //Get temporary file
-  const imagefile = req.files.image.path;
-  // upload
-  const result = await cloudinary.uploader.upload(imageFile, { tags: "ludens" });
-  // result guardar base de datos
+// export const imageModify = async (req, res) => {
+//   const { id } = req.params;
+//   console.log(req);
+//   res.status(200).json({ message: "Images Modify" });
+// };
 
-  // multiple images
-  try {
-    const uploader = async path => await cloudinary.uploads(path, "Images" /*folder*/);
-    const ulrs = [];
-    const files = req.files;
-    for (const file of files) {
-      const { path } = file;
-      const newPath = await uploader(path);
-      ulrs.push(newPath);
-      fs.unlinkSync(path);
-    }
-    res.status(200).json({ message: "Images uploaded successfully", data: urls });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Error uploading images" });
-  }
-};
-
-export const imageModify = async (req, res) => {
-  const { id } = req.params;
-  console.log(req);
-  res.status(200).json({ message: "Images Modify" });
-};
-
-export const imageDelete = async (req, res) => {
-  const { id } = req.params;
-  /*cloudinary.v2.uploader.destroy(public_id, options).then(callback);*/
-  console.log(req);
-  res.status(200).json({ message: "Images Delete" });
-};
+// export const imageDelete = async (req, res) => {
+//   const { id } = req.params;
+//   /*cloudinary.v2.uploader.destroy(public_id, options).then(callback);*/
+//   console.log(req);
+//   res.status(200).json({ message: "Images Delete" });
+// };
 
 // /// Eager Transformations:
 // // Applied as soon as the file is uploaded, instead of lazily applying them when accessed by your site's visitors.
@@ -70,3 +58,30 @@ export const imageDelete = async (req, res) => {
 //   console.log("* " + image.eager[0].url);
 //   waitForAllUploads("lake", err, image);
 // });
+
+// UPLOAD ON CLOUDINARY ONE FILE
+
+export const addImage = async (req, namePattern, description) => {
+  const imagefile = req.file.path;
+  try {
+    const result = await cloudinary.uploader.upload(imagefile, {
+      public_id: namePattern
+    });
+    console.log(result);
+    if (result) {
+      const newImage = new Image({
+        public_id: result.public_id,
+        path: result.url,
+        alternativeText: description
+      });
+
+      const savedImage = await newImage.save();
+      deleteFilefromFS(imagefile, req);
+      console.log("saved image", savedImage);
+      return savedImage._id;
+    }
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+};

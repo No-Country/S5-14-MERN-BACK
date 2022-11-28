@@ -1,22 +1,21 @@
 import { Router } from "express";
 import {
-  imageGet,
-  imageAdd,
-  imageModify,
-  imageGetById,
-  imageDelete
-} from "../controllers/userController.js";
-import upload from "../middlewares/multer-config";
+  // imageGet,
+  imageAdd
+  // imageModify,
+  // imageGetById,
+  // imageDelete
+} from "../controllers/imagesController.js";
+import upload from "../middlewares/multer-config.js";
 
 const imagesRouter = Router();
 
-imagesRouter
-  .route("/:id")
-  .get(imageGetById)
-  .post(upload, imageAdd)
-  .put(upload, imageModify)
-  .delete(imageDelete);
+// imagesRouter
+//   .route("/:id")
+//   .get(imageGetById)
+//   .put(upload.single("image"), imageModify)
+//   .delete(imageDelete);
 
-imagesRouter.route("/").get(imageGet);
+imagesRouter.route("/").post(upload.single("image"), imageAdd); // .get(imageGet);
 
 export default imagesRouter;
