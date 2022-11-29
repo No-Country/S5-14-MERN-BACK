@@ -11,15 +11,15 @@ export const getAllUsers = async (req, res) => {
       return res.status(400).json({ msg: error.message });
     }
     return res.json({ users: allUsers });
-  } catch (err) {
-    return res.status(500).json({ msg: err.message });
+  } catch (error) {
+    return res.status(500).json({ msg: error.message });
   }
 };
 
 export const getAllUsersAdmin = async (req, res) => {
   const { admin } = req;
   if (!admin) {
-    const error = new Error("User not authenticated");
+    const error = new Error("Unathorized User");
     return res.status(400).json({ msg: error.message });
   }
   try {
@@ -32,14 +32,13 @@ export const getAllUsersAdmin = async (req, res) => {
       return res.status(400).json({ msg: error.message });
     }
     return res.json({ users: allUsers });
-  } catch (err) {
-    return res.status(500).json({ msg: err.message });
+  } catch (error) {
+    return res.status(500).json({ msg: error.message });
   }
 };
 
 export const getUser = async (req, res) => {
   const { id } = req.params;
-  console.log(id);
   try {
     const user = await User.findById(id)
       .select("-password -email -admin -createdAt -updatedAt")
@@ -50,30 +49,28 @@ export const getUser = async (req, res) => {
       return res.status(404).json({ msg: error.message });
     }
     return res.json({ user });
-  } catch (err) {
-    return res.status(500).json({ msg: err.message });
+  } catch (error) {
+    return res.status(500).json({ msg: error.message });
   }
 };
 
 export const userProfile = async (req, res) => {
   const { id } = req.params;
   const { userID, admin } = req;
-
   try {
     if (userID === id || admin) {
-      const user = await User.findById(req.userID).select("-password -createdAt -updatedAt");
-
+      const user = await User.findById(userID).select("-password -createdAt -updatedAt");
       if (!user) {
         const error = new Error("User not found");
         return res.status(400).json({ msg: error.message });
       }
       return res.json(user);
     } else {
-      const error = new Error("User not authenticated");
+      const error = new Error("Unathorized User");
       return res.status(400).json({ msg: error.message });
     }
-  } catch (e) {
-    return res.status(400).json({ msg: e.message });
+  } catch (error) {
+    return res.status(500).json({ msg: error.message });
   }
 };
 
@@ -82,30 +79,31 @@ export const userUpdate = async (req, res) => {
   const { userID } = req;
   try {
     if (id === userID) {
-      const updatedUser = await User.findByIdAndUpdate(req.userID, req.body, {
+      const updatedUser = await User.findByIdAndUpdate(userID, req.body, {
         new: true
       }).select("-password -createdAt -updatedAt");
       return res.json(updatedUser);
     } else {
-      const error = new Error("User not authenticated");
+      const error = new Error("Unathorized User");
       return res.status(400).json({ msg: error.message });
     }
-  } catch (e) {
-    return res.status(400).json({ msg: error.message });
+  } catch (error) {
+    return res.status(500).json({ msg: error.message });
   }
 };
 
 export const userDelete = async (req, res) => {
   const { id } = req.params;
+  const { userID, admin } = req;
   try {
-    if (id === req.userID || req.admin) {
-      await User.findByIdAndDelete(req.userID);
+    if (id === userID || admin) {
+      await User.findByIdAndDelete(userID);
       return res.json({ msg: "User deleted" });
     } else {
-      const error = new Error("User not authenticated");
+      const error = new Error("Unathorized User");
       return res.status(400).json({ msg: error.message });
     }
-  } catch (e) {
-    return res.status(400).json({ msg: error.message });
+  } catch (error) {
+    return res.status(500).json({ msg: error.message });
   }
 };

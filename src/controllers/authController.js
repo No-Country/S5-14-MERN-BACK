@@ -32,14 +32,13 @@ export const userLogin = async (req, res) => {
     const user = await User.findOne({ email })
       .select("-createdAt -updatedAt")
       .populate("friends", "_id username avatar")
-      .populate("favorites", "_id name votes reviews imagePath");
-
+      .populate("favorites", "_id name votes reviews imagePath")
+      .populate("friendRequests", "-createdAt -updatedAt");
     if (!user || !(await user.checkPassword(password))) {
       const error = new Error("Email or password is incorrect");
       return res.status(404).json({ msg: error.message });
     }
     const jwt = jwtGenerate(user._id, user.admin);
-
     return res.json({ user: { ...user._doc, password: "" }, auth: jwt });
   } catch (error) {
     return res.status(500).json({ msg: error.message });
@@ -63,7 +62,7 @@ export const userChangePassword = async (req, res) => {
       const error = new Error("User not authenticated");
       return res.status(400).json({ msg: error.message });
     }
-  } catch (e) {
-    return res.status(500).json({ msg: e.message });
+  } catch (error) {
+    return res.status(500).json({ msg: error.message });
   }
 };

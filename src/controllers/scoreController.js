@@ -4,7 +4,6 @@ import User from "../models/User.js";
 
 export const getGameScore = async (req, res) => {
   const { gameId } = req.params;
-
   try {
     // exist game
     const existGame = await Game.findById({ _id: gameId });
@@ -17,7 +16,6 @@ export const getGameScore = async (req, res) => {
         score: "desc"
       })
       .populate("userId", "-_id username");
-
     const resp = gameScores.map(score => {
       return {
         username: score.userId.username,
@@ -25,18 +23,15 @@ export const getGameScore = async (req, res) => {
         socre: score.score
       };
     });
-
     return res.json({ scores: resp });
-  } catch (err) {
-    console.log(err);
-    return res.status(500).json({ msg: err.message });
+  } catch (error) {
+    return res.status(500).json({ msg: error.message });
   }
 };
 
 export const setGameScore = async (req, res) => {
   const { userId, score } = req.body;
   const { gameId } = req.params;
-
   if (!userId || !score) return res.status(400).json({ msg: "missing userId or score" });
   try {
     // exist game
@@ -65,8 +60,7 @@ export const setGameScore = async (req, res) => {
       }
     }
     return res.json({ score });
-  } catch (err) {
-    console.log(err);
-    return res.status(500).json({ msg: err.message });
+  } catch (error) {
+    return res.status(500).json({ msg: error.message });
   }
 };
