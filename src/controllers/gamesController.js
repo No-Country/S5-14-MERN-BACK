@@ -1,16 +1,18 @@
 import Game from "../models/Game.js";
+import Image from "../models/Image.js";
 import validateId from "../helpers/idValidator.js";
+import { addImage } from "./imagesController.js";
+import deleteFilefromFS from "../helpers/fileManager.js";
 
 export const findAllGames = async (req, res) => {
   try {
-    const allGames = await Game.find({});
-
+    const allGames = await Game.find().select("name stars createdAt").populate("cover", "path");
     if (allGames.length == 0)
       return res.status(404).json({ msg: "There are no games in the database" });
 
     return res.status(200).json({ games: allGames });
   } catch (error) {
-    return res.status(500).json({ msg: "We had an error please try again later" });
+    return res.status(500).json({ msg: error.message });
   }
 };
 
@@ -19,7 +21,10 @@ export const findGameById = async (req, res) => {
 
   if (!validateId(id)) return res.status(400).json({ msg: "The Id is not a valid ID" });
   try {
-    const foundGame = await Game.findById(id);
+    const foundGame = await Game.findById(id, "-createdAt -updatedAt").populate(
+      "cover",
+      "-createdAt -updatedAt"
+    );
 
     if (!foundGame) return res.status(404).json({ msg: "Game not found" });
 
@@ -30,31 +35,57 @@ export const findGameById = async (req, res) => {
 };
 
 export const createNewGame = async (req, res) => {
-  const { name, description, devices, imagePath, audience } = req.body;
+  console.log("create new game", req.file);
+  const { name, description, devices, audiencies, coming_soon } = req.body;
   const { admin } = req;
+  const imagefile = req.file.path;
 
-  if (!admin) return res.status(401).json({ msg: "Unathorized User" });
+  if (!admin) {
+    if (req.file) await deleteFilefromFS(imagefile, req);
+    return res.status(401).json({ msg: "Unathorized User" });
+  }
 
   const existingGame = await Game.find({ name });
 
-  if (existingGame.length !== 0)
+  if (existingGame.length !== 0) {
+    if (req.file) await deleteFilefromFS(imagefile, req);
     return res.status(400).json({ msg: "The game's name already exist in the Database" });
+  }
 
-  if (!name || !description || !imagePath)
+  if (!name || !description || !req.file) {
+    if (req.file) await deleteFilefromFS(imagefile, req);
     return res.status(400).json({ msg: "Missing relevant values" });
+  }
   try {
-    const newGame = new Game({
-      name,
-      description,
-      devices,
-      imagePath,
-      audience
-    });
+    // create new image in cloudinary
+    if (!req.file) {
+      res.status(400).json({ message: "Not uploaded Files" });
+    } else {
+      const result = await addImage(
+        req,
+        `${name.trim().replace(/:/g, "-").replace(" ", "_")}-cover`,
+        `Foto del juego ${name}`
+      );
+      console.log("imagen: ", result);
+      if (result) {
+        const newGame = new Game({
+          name,
+          description,
+          devices,
+          audiencies,
+          coming_soon,
+          cover: result
+        });
 
-    const savedGame = await newGame.save();
-
-    return res.status(200).json({ game: savedGame });
+        const savedGame = await newGame.save();
+        return res.status(200).json({
+          game: { id: savedGame._id, cover: result.path, name: savedGame.name }
+        });
+      }
+    }
   } catch (error) {
+    console.log(error);
+    if (req.file) await deleteFilefromFS(imagefile, req);
     return res.status(500).json({ msg: "We had an error please try again later" });
   }
 };
