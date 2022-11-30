@@ -11,12 +11,12 @@ export const userRegister = async (req, res) => {
     const emailUsed = await User.findOne({ email });
     if (emailUsed) {
       const error = new Error("Email in use");
-      return res.status(400).json({ msg: error.message });
+      return res.status(403).json({ msg: error.message });
     }
     const usernameUsed = await User.findOne({ username });
     if (usernameUsed) {
       const error = new Error("Username in use");
-      return res.status(400).json({ msg: error.message });
+      return res.status(403).json({ msg: error.message });
     }
     const newUser = new User(req.body);
     await newUser.save();
