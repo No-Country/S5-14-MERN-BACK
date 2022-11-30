@@ -1,5 +1,5 @@
 import Image from "../models/Image.js";
-import { v2 as cloudinary } from "cloudinary";
+import cloudinary from "../helpers/cloudinary.js";
 import { default as deleteFilefromFS } from "../helpers/fileManager.js";
 
 export const imageGet = async (req, res) => {

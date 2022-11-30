@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const imageSchema = mongoose.Schema(
   {
-    id: {
+    public_id: {
       type: String,
       require: true
     },

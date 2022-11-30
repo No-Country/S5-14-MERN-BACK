@@ -15,7 +15,6 @@ const imagesRouter = Router();
 //   .get(imageGetById)
 //   .put(upload.single("image"), imageModify)
 //   .delete(imageDelete);
-
-imagesRouter.route("/").post(upload.single("image"), imageAdd); // .get(imageGet);
+imagesRouter.route("/").post(upload.single("image"), imageAdd);
 
 export default imagesRouter;

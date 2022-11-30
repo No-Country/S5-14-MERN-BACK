@@ -40,8 +40,13 @@ const gameSchema = mongoose.Schema(
       type: Boolean,
       default: true
     },
+    stars: {
+      type: Number,
+      default: 0
+    },
     reviews: {
-      type: [review]
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Review"
     }
   },
   {

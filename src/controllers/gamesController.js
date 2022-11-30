@@ -1,18 +1,19 @@
 import Game from "../models/Game.js";
+import Image from "../models/Image.js";
 import validateId from "../helpers/idValidator.js";
-import { default as cloudinary } from "../helpers/cloudinary.js";
 import { addImage } from "./imagesController.js";
-import { default as deleteFilefromFS } from "../helpers/fileManager.js";
+import deleteFilefromFS from "../helpers/fileManager.js";
 
 export const findAllGames = async (req, res) => {
   try {
-    const allGames = await Game.find({});
+    const allGames = await Game.find().populate("cover").populate("reviews");
 
     if (allGames.length == 0)
       return res.status(404).json({ msg: "There are no games in the database" });
 
-    return res.status(200).json({ games: allGames });
+    return res.status(200).json({ games: result });
   } catch (error) {
+    console.log(error);
     return res.status(500).json({ msg: "We had an error please try again later" });
   }
 };
@@ -22,7 +23,15 @@ export const findGameById = async (req, res) => {
 
   if (!validateId(id)) return res.status(400).json({ msg: "The Id is not a valid ID" });
   try {
-    const foundGame = await Game.findById(id);
+    const foundGame = await Game.findOne({
+      where: { id: id },
+      include: [
+        {
+          model: Image,
+          attributes: ["url", "description", "_id"]
+        }
+      ]
+    });
 
     if (!foundGame) return res.status(404).json({ msg: "Game not found" });
 
@@ -76,7 +85,9 @@ export const createNewGame = async (req, res) => {
         });
 
         const savedGame = await newGame.save();
-        return res.status(200).json({ game: savedGame });
+        return res.status(200).json({
+          game: { id: savedGame._id, cover: result.path, name: savedGame.name }
+        });
       }
     }
   } catch (error) {
