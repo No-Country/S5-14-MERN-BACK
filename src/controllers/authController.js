@@ -36,7 +36,7 @@ export const userLogin = async (req, res) => {
 
     if (!user || !(await user.checkPassword(password))) {
       const error = new Error("Email or password is incorrect");
-      return res.status(404).json({ msg: error.message });
+      return res.status(403).json({ msg: error.message });
     }
     const jwt = jwtGenerate(user._id, user.admin);
 
