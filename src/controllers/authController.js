@@ -28,6 +28,7 @@ export const userRegister = async (req, res) => {
 
 export const userLogin = async (req, res) => {
   const { email, password } = req.body;
+
   try {
     const user = await User.findOne({ email });
     if (!user || !(await user.checkPassword(password))) {
@@ -35,6 +36,7 @@ export const userLogin = async (req, res) => {
       return res.status(403).json({ msg: error.message });
     }
     const jwt = jwtGenerate(user._id, user.admin);
+    console.log(jwt);
     return res.json({ user: { id: user._doc._id, admin: user._doc.admin }, auth: jwt });
   } catch (error) {
     return res.status(500).json({ msg: error.message });
