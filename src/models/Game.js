@@ -34,12 +34,9 @@ const gameSchema = mongoose.Schema(
       type: [String]
     },
     audiencies: {
-      type: String
-    },
-    audience: {
       type: String,
-      enum: ["TP", "+3", "+7"],
-      default: "TP"
+      enum: ["tp", "+3", "+7"],
+      default: "tp"
     },
     stars: {
       type: Number,
