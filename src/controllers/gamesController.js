@@ -6,7 +6,8 @@ import deleteFilefromFS from "../helpers/fileManager.js";
 
 export const findAllGames = async (req, res) => {
   try {
-    const allGames = await Game.find().select("name stars createdAt").populate("cover", "path");
+    // const allGames = await Game.find().select("name stars createdAt").populate("cover", "path");
+    const allGames = await Game.find().populate("cover", "path");
     if (allGames.length == 0)
       return res.status(404).json({ msg: "There are no games in the database" });
 
@@ -35,7 +36,8 @@ export const findGameById = async (req, res) => {
 };
 
 export const createNewGame = async (req, res) => {
-  console.log("create new game", req.file);
+  console.log("create new game", req);
+  console.log("create new game file", req?.files);
   const { name, description, devices, audiencies, coming_soon } = req.body;
   const { admin } = req;
   const imagefile = req.file.path;
