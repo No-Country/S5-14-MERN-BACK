@@ -58,6 +58,7 @@ export const createNewGame = async (req, res) => {
     if (req.file) await deleteFilefromFS(imagefile, req);
     return res.status(400).json({ msg: "Missing relevant values" });
   }
+
   try {
     // create new image in cloudinary
     if (!req.file) {
