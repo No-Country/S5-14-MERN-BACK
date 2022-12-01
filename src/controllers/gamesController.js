@@ -1,5 +1,4 @@
 import Game from "../models/Game.js";
-import Image from "../models/Image.js";
 import validateId from "../helpers/idValidator.js";
 import { addImage } from "./imagesController.js";
 import deleteFilefromFS from "../helpers/fileManager.js";

@@ -49,6 +49,11 @@ const gameSchema = mongoose.Schema(
     reviews: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Review"
+    },
+    folder: {
+      type: String,
+      unique: true,
+      trim: true
     }
   },
   {
