@@ -1,5 +1,4 @@
 import Game from "../models/Game.js";
-import Image from "../models/Image.js";
 import validateId from "../helpers/idValidator.js";
 import { addImage } from "./imagesController.js";
 import deleteFilefromFS from "../helpers/fileManager.js";
@@ -36,11 +35,10 @@ export const findGameById = async (req, res) => {
 };
 
 export const createNewGame = async (req, res) => {
-  console.log("create new game", req);
-  console.log("create new game file", req?.files);
   const { name, description, devices, audiencies, coming_soon } = req.body;
   const { admin } = req;
-  const imagefile = req.file.path;
+
+  const imagefile = req.file?.path;
 
   if (!admin) {
     if (req.file) await deleteFilefromFS(imagefile, req);
