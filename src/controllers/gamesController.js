@@ -36,11 +36,10 @@ export const findGameById = async (req, res) => {
 };
 
 export const createNewGame = async (req, res) => {
-  console.log("create new game", req);
-  console.log("create new game file", req?.files);
   const { name, description, devices, audiencies, coming_soon } = req.body;
   const { admin } = req;
-  const imagefile = req.file.path;
+
+  const imagefile = req.file?.path;
 
   if (!admin) {
     if (req.file) await deleteFilefromFS(imagefile, req);
