@@ -4,7 +4,6 @@ import checkAuth from "../middlewares/checkAuth.js";
 
 const scoreRouter = express.Router();
 
-scoreRouter.route("/:gameId").get(getGameScore);
-scoreRouter.route("/:gameId").post(checkAuth, setGameScore);
+scoreRouter.route("/:gameId").get(getGameScore).post(checkAuth, setGameScore);
 
 export default scoreRouter;

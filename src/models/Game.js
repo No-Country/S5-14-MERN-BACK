@@ -1,10 +1,9 @@
 import mongoose from "mongoose";
 
-const review = mongoose.Schema(
+const Review = mongoose.Schema(
   {
     user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User"
+      type: String
     },
     stars: {
       type: Number
@@ -47,8 +46,8 @@ const gameSchema = mongoose.Schema(
       default: false
     },
     reviews: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Review"
+      type: [Review],
+      default: []
     },
     folder: {
       type: String,

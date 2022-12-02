@@ -30,9 +30,10 @@ export const getGameScore = async (req, res) => {
 };
 
 export const setGameScore = async (req, res) => {
-  const { userId, score } = req.body;
+  const { score } = req.body;
   const { gameId } = req.params;
-  if (!userId || !score) return res.status(400).json({ msg: "missing userId or score" });
+  const { userID } = req;
+  if (!userID || !score) return res.status(400).json({ msg: "missing userId or score" });
   try {
     // exist game
     const existGame = await Game.findOne({ _id: gameId });
@@ -41,16 +42,17 @@ export const setGameScore = async (req, res) => {
       return res.status(400).json({ msg: error.message });
     }
     // exists user
-    const existUser = await User.findById(userId);
+    const existUser = await User.findById(userID);
     if (!existUser) {
       const error = new Error("User dont exist");
       return res.status(400).json({ msg: error.message });
     }
     // user have score in the game
-    const existGameScore = await Score.findOne({ game: existGame.name, userId });
+    const existGameScore = await Score.findOne({ game: existGame.name, userID });
+
     if (!existGameScore) {
       // create new score
-      const newScore = await new Score({ userId, game: existGame.name, score });
+      const newScore = await new Score({ userID, game: existGame.name, score });
       await newScore.save();
     } else {
       // update user score of the game if it's greater

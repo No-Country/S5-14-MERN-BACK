@@ -1,6 +1,6 @@
 import Game from "../models/Game.js";
 import validateId from "../helpers/idValidator.js";
-import { addImage } from "./imagesController.js";
+import { addImage, imageGet } from "./imagesController.js";
 import deleteFilefromFS from "../helpers/fileManager.js";
 
 export const findAllGames = async (req, res) => {
@@ -56,7 +56,6 @@ export const createNewGame = async (req, res) => {
     if (req.file) await deleteFilefromFS(imagefile, req);
     return res.status(400).json({ msg: "Missing relevant values" });
   }
-
   try {
     // create new image in cloudinary
     if (!req.file) {
@@ -148,5 +147,53 @@ export const eliminateGame = async (req, res) => {
     });
   } catch (error) {
     return res.status(500).json({ msg: "Sorry, an error occured please try again later" });
+  }
+};
+
+export const getGameReview = async (req, res) => {
+  const { gameId } = req.params;
+  const { userID } = req;
+  try {
+    const game = await Game.findById(gameId);
+    if (!game) {
+      const error = new Error("Game not exists");
+      return res.status(403).json({ msg: error.message });
+    }
+    const userReview = game.reviews.filter(review => review.user === userID);
+    return res.json({ review: userReview });
+  } catch (error) {
+    return res.status(500).json({ msg: error.message });
+  }
+};
+
+export const setGameReview = async (req, res) => {
+  const { gameId } = req.params;
+  let { review } = req.body;
+  const { userID } = req;
+  review = Number(review);
+  try {
+    const game = await Game.findById(gameId);
+    if (!game) {
+      const error = new Error("Game not exists");
+      return res.status(403).json({ msg: error.message });
+    }
+    // console.log(game);
+    const newReviews = game.reviews.filter(review => review.user !== userID);
+    let newStars = 0;
+    newReviews.forEach(review => {
+      newStars += review.stars;
+    });
+    game.stars = Math.floor((newStars + review) / (newReviews.length + 1));
+    if (newReviews.length === game.reviews.length) {
+      game.reviews.push({ user: userID, stars: review });
+      await game.save();
+      return res.json({ msg: "Review added" });
+    } else {
+      game.reviews = [...newReviews, { user: userID, stars: review }];
+      await game.save();
+      return res.json({ msg: "Review modified" });
+    }
+  } catch (error) {
+    return res.status(500).json({ msg: error.message });
   }
 };
