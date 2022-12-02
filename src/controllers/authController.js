@@ -36,7 +36,6 @@ export const userLogin = async (req, res) => {
       return res.status(403).json({ msg: error.message });
     }
     const jwt = jwtGenerate(user._id, user.admin);
-    console.log(jwt);
     return res.json({ user: { id: user._doc._id, admin: user._doc.admin }, auth: jwt });
   } catch (error) {
     return res.status(500).json({ msg: error.message });
@@ -51,14 +50,14 @@ export const userChangePassword = async (req, res) => {
       const user = await User.findById(req.userID);
       if (!user) {
         const error = new Error("User not found");
-        return res.status(400).json({ msg: error.message });
+        return res.status(404).json({ msg: error.message });
       }
       user.password = password;
       await user.save();
       return res.json({ msg: "Password changed" });
     } else {
       const error = new Error("User not authenticated");
-      return res.status(400).json({ msg: error.message });
+      return res.status(403).json({ msg: error.message });
     }
   } catch (error) {
     return res.status(500).json({ msg: error.message });
