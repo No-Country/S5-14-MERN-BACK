@@ -20,7 +20,7 @@ export const getAllUsersAdmin = async (req, res) => {
   const { admin } = req;
   if (!admin) {
     const error = new Error("Unathorized User");
-    return res.status(400).json({ msg: error.message });
+    return res.status(403).json({ msg: error.message });
   }
   try {
     const allUsers = await User.find()
@@ -67,7 +67,7 @@ export const userProfile = async (req, res) => {
       return res.json(user);
     } else {
       const error = new Error("Unathorized User");
-      return res.status(400).json({ msg: error.message });
+      return res.status(403).json({ msg: error.message });
     }
   } catch (error) {
     return res.status(500).json({ msg: error.message });
@@ -85,7 +85,7 @@ export const userUpdate = async (req, res) => {
       return res.json(updatedUser);
     } else {
       const error = new Error("Unathorized User");
-      return res.status(400).json({ msg: error.message });
+      return res.status(403).json({ msg: error.message });
     }
   } catch (error) {
     return res.status(500).json({ msg: error.message });
@@ -101,7 +101,7 @@ export const userDelete = async (req, res) => {
       return res.json({ msg: "User deleted" });
     } else {
       const error = new Error("Unathorized User");
-      return res.status(400).json({ msg: error.message });
+      return res.status(403).json({ msg: error.message });
     }
   } catch (error) {
     return res.status(500).json({ msg: error.message });

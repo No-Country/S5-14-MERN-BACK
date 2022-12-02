@@ -1,11 +1,10 @@
 import Game from "../models/Game.js";
 import validateId from "../helpers/idValidator.js";
-import { addImage, imageGet } from "./imagesController.js";
 import deleteFilefromFS from "../helpers/fileManager.js";
+import { addImage } from "./imagesController.js";
 
 export const findAllGames = async (req, res) => {
   try {
-    // const allGames = await Game.find().select("name stars createdAt").populate("cover", "path");
     const allGames = await Game.find().populate("cover", "path");
     if (allGames.length == 0)
       return res.status(404).json({ msg: "There are no games in the database" });
@@ -66,7 +65,6 @@ export const createNewGame = async (req, res) => {
         `${name.trim().replace(/:/g, "-").replace(" ", "_")}-cover`,
         `Foto del juego ${name}`
       );
-      console.log("imagen: ", result);
       if (result) {
         const newGame = new Game({
           name,
@@ -84,7 +82,6 @@ export const createNewGame = async (req, res) => {
       }
     }
   } catch (error) {
-    console.log(error);
     if (req.file) await deleteFilefromFS(imagefile, req);
     return res.status(500).json({ msg: "We had an error please try again later" });
   }
@@ -177,7 +174,6 @@ export const setGameReview = async (req, res) => {
       const error = new Error("Game not exists");
       return res.status(403).json({ msg: error.message });
     }
-    // console.log(game);
     const newReviews = game.reviews.filter(review => review.user !== userID);
     let newStars = 0;
     newReviews.forEach(review => {

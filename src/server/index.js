@@ -1,6 +1,5 @@
 import express from "express";
 import morgan from "morgan";
-// import cors from "cors";
 import helmet from "helmet";
 import connectDB from "../config/db.js";
 import cors from "../middlewares/cors.js";
@@ -13,7 +12,6 @@ import friendsRouter from "../routes/friendsRouter.js";
 import favoritesRouter from "../routes/favoritesRouter.js";
 import notificationRouter from "../routes/notificationsRouter.js";
 import imagesRouter from "../routes/imagesRouter.js";
-// import categoryRouter from "../routes/categoryRouter.js";
 
 // Node 14 path import
 import path from "path";
@@ -36,7 +34,6 @@ server.use("/api/friends", friendsRouter);
 server.use("/api/chat", chatRouter);
 server.use("/api/favorites", favoritesRouter);
 server.use("/api/notifications", notificationRouter);
-// server.use("/api/categories", categoryRouter);
 server.use("api/images", imagesRouter);
 
 // Images Fixed Route
