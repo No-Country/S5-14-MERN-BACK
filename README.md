@@ -29,26 +29,58 @@
 ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
 ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
 ![Slack](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white)
-![Discord] (https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&logo=discord&logoColor=white)
+![Discord](https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&logo=discord&logoColor=white)
 ![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)
 ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
 <br/>
 
 ## Requerimientos 📋
 
+Se necesita tener instalado NODEJS y NPM.
+El backend corre en NODEJS 14
+
 ### SITIO WEB 
 
-Dependencias: "@emotion/react": "^11.10.5","@emotion/styled": "^11.10.5","@mui/material": "^5.10.14","@reduxjs/toolkit": "^1.9.0","axios": "^1.1.3","bootstrap-icons": "^1.10.2","emoji-picker-react": "^4.4.6","formik": "^2.2.9","keen-slider": "^6.8.3", "prop-types": "^15.8.1", "react": "^18.2.0", "react-dom": "^18.2.0", "react-jigsaw-puzzle": "^1.0.4", "react-redux": "^8.0.5", "react-responsive": "^9.0.2", "react-router-dom": "^6.4.3", "react-toastify": "^9.1.1", "sass": "^1.56.1", "socket.io-client": "^4.5.4", "sweetalert2": "^11.4.8", "yup": "^0.32.11"
-  
+Dependencias: 
+
+emotion/react:^11.10.5 ,emotion/styled: 11.10.5, mui/material:^5.10.14,reduxjs/toolkit:^1.9.0,axios: ^1.1.3,bootstrap-icons: ^1.10.2,emoji-picker-react: ^4.4.6,formik: ^2.2.9,keen-slider: ^6.8.3, prop-types: ^15.8.1, react: ^18.2.0, react-dom: ^18.2.0, react-jigsaw-puzzle: ^1.0.4, react-redux: ^8.0.5, react-responsive: ^9.0.2, react-router-dom: ^6.4.3, react-toastify: 9.1.1, sass: ^1.56.1, socket.io-client: ^4.5.4, sweetalert2: ^11.4.8, yup: ^0.32.11
+
+Instrucciones:
+
+- Ir a la carpeta Frontend.
+- Instalar dependencias con ```npm i```
+- Crear un archivo .env en la carpeta front con la variable VITE_API_URL conteniendo la información de la URL de la API
+- En la consola ingresar ``` npm run dev```, o ```npm start```
+- Acceder al puerto 5173 de localhost.
+
+
 ### API
 
 Documentación: 
 
 [Api Documentación](https://docs.google.com/document/d/1l0BrUa3j5a0D44qTp73qbrOP9SrjIC4r4CxgGI82Vnc/edit#heading=h.ctjmeoh2jl80)
 
+Instrucciones:
+
+- Instalar dependencias con ```npm i```
+
+- Crear una cuenta en cloudinary y obtener el cloud_name, cloud_api y cloud_api_secret de la cuenta.
+
+- Crear un archivo .env con las siguientes variables:
+
+````MONGO_URI="nombre de la base de datos mongoDB"
+PORT="8000"
+JWT_SECRET= el secret elegido para el token.
+CLOUD_NAME= cloud name de la cuenta de cloudinary.
+CLOUD_API_KEY= api key de la cuenta de cloudinary.
+CLOUD_API_SECRET= api secret de la cuenta de cloudinary.
+ORIGINS_ALLOWED= Las webs desde donde haremos las llamadas a la api. Ej: "http://localhost:5173/, http://127.0.0.1:5173, http://localhost:5173,http://localhost:5174/, http://127.0.0.1:5174, http://localhost:5174"```
+- Correr el servidor con ```npm run dev``` o ```npm start```
+
 ## Deploy
 
 Puedes encontrar nuestra API en el siguiente link: [https://ludensapi.vercel.app](https://ludensapi.vercel.app)
+<br/><br/>
 Puedes encontrar nuestra WEB en el siguiente link: [https://ludens-two.vercel.app](https://ludens-two.vercel.app)
 
 <br/><br/>
