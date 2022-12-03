@@ -5,26 +5,41 @@
 <br/>
 ## Desarrollada con: 🛠️
 
+
+(![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
+
+![HTML](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+![SASS](https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white)
+![REACT](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![BOOTSTRAP](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white)
+![REDUX](https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white)
+![ESLINT](https://img.shields.io/badge/eslint-3A33D1?style=for-the-badge&logo=eslint&logoColor=white)
+![PRETTIER](https://img.shields.io/badge/prettier-1A2C34?style=for-the-badge&logo=prettier&logoColor=F7BA3E)
+![Jest](https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white)
 ![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
 ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
 ![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
 ![Socket.io](https://img.shields.io/badge/Socket.io-black?style=for-the-badge&logo=socket.io&badgeColor=010101)
-![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
-![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)
-![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
-![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+[![CLOUDINARY](https://img.shields.io/badge/CLOUDINARY-gray?style=flat&logo=https://res.cloudinary.com/cloudinary-marketing/image/upload/c_scale,w_45/creative_source/Logo/Cloud%20Glyph/cloudinary_cloud_glyph_regular.svg&logoColor=3448C5&logoWidth=50&link=https://cloudinary.com/)](https://cloudinary.com/)
+
 ![Jira](https://img.shields.io/badge/jira-%230A0FFF.svg?style=for-the-badge&logo=jira&logoColor=white)
 ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
-![Swagger](https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white)
-![Jest](https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white)
 ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
-
-
+![Slack](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white)
+![Discord] (https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&logo=discord&logoColor=white)
+![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)
+![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
 <br/>
 
 ## Requerimientos 📋
 
+### SITIO WEB 
+
+Dependencias: "@emotion/react": "^11.10.5","@emotion/styled": "^11.10.5","@mui/material": "^5.10.14","@reduxjs/toolkit": "^1.9.0","axios": "^1.1.3","bootstrap-icons": "^1.10.2","emoji-picker-react": "^4.4.6","formik": "^2.2.9","keen-slider": "^6.8.3", "prop-types": "^15.8.1", "react": "^18.2.0", "react-dom": "^18.2.0", "react-jigsaw-puzzle": "^1.0.4", "react-redux": "^8.0.5", "react-responsive": "^9.0.2", "react-router-dom": "^6.4.3", "react-toastify": "^9.1.1", "sass": "^1.56.1", "socket.io-client": "^4.5.4", "sweetalert2": "^11.4.8", "yup": "^0.32.11"
+  
 ### API
 
 Documentación: 
@@ -33,7 +48,8 @@ Documentación:
 
 ## Deploy
 
-Puedes encontrar nuestra API en el siguiente link: [click aquí](#)
+Puedes encontrar nuestra API en el siguiente link: [https://ludensapi.vercel.app](https://ludensapi.vercel.app)
+Puedes encontrar nuestra WEB en el siguiente link: [https://ludens-two.vercel.app](https://ludens-two.vercel.app)
 
 <br/><br/>
 
@@ -46,6 +62,28 @@ Puedes encontrar nuestra API en el siguiente link: [click aquí](#)
 ### Hernan Emanuel Reyes : [LinkedIn]() | [GitHub]() | [Portfolio]()
 
 </br>
+
+## UX
+
+### Kevin Grassi [LinkedIn]() | [GitHub]() | [Portfolio]()
+
+### Christian Sotelo [LinkedIn]() | [GitHub]() | [Portfolio]()
+
+
+## Front - End 🚀
+
+### Maria Bracho Villanueva [LinkedIn]() | [GitHub]() | [Portfolio]()
+
+### Emanuel Capo [LinkedIn]() | [GitHub]() | [Portfolio]()
+
+### Juan Carracedo [LinkedIn]() | [GitHub]() | [Portfolio]()
+
+### Jhonatan Poblet: [LinkedIn]() | [GitHub]() | [Portfolio]()
+
+### Maria Villen [LinkedIn]() | [GitHub]() | [Portfolio]()
+
+### Pablo Zalazar [LinkedIn]() | [GitHub]() | [Portfolio]()
+
 
 ## Back - End 🚀
 
