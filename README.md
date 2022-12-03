@@ -1,13 +1,15 @@
 <h1 align = "center"> LUDENS </h1>
-<p align = "center"> Ludens es un sitio web de juegos educativos para niños.</p>
 <p align = "center"> <img src = "https://i85.servimg.com/u/f85/19/88/52/56/logolu10.png" /> </p>
+<p align = "center"> Ludens es un sitio web de juegos educativos para niños. En nuestra palataforma aprendes jugando con tus amigos con un sistema de mensajes predefinido, apostando por la seguridad. Desafía a tus amigos, comparte tu ranking, agrega a favoritos y mucho mas.</p>
+
 
 <br/>
+
 ## Desarrollada con: 🛠️
 
+<br/>
 
-(![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
-
+![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
 ![HTML](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
@@ -24,7 +26,6 @@
 ![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
 ![Socket.io](https://img.shields.io/badge/Socket.io-black?style=for-the-badge&logo=socket.io&badgeColor=010101)
 [![CLOUDINARY](https://img.shields.io/badge/CLOUDINARY-gray?style=flat&logo=https://res.cloudinary.com/cloudinary-marketing/image/upload/c_scale,w_45/creative_source/Logo/Cloud%20Glyph/cloudinary_cloud_glyph_regular.svg&logoColor=3448C5&logoWidth=50&link=https://cloudinary.com/)](https://cloudinary.com/)
-
 ![Jira](https://img.shields.io/badge/jira-%230A0FFF.svg?style=for-the-badge&logo=jira&logoColor=white)
 ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
 ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
@@ -33,19 +34,23 @@
 ![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)
 ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
 <br/>
+<br/>
 
 ## Requerimientos 📋
 
 Se necesita tener instalado NODEJS y NPM.
 El backend corre en NODEJS 14
+<br/><br/><br/>
 
 ### SITIO WEB 
 
-Dependencias: 
+<br/>
+
+***Dependencias:*** 
 
 emotion/react:^11.10.5 ,emotion/styled: 11.10.5, mui/material:^5.10.14,reduxjs/toolkit:^1.9.0,axios: ^1.1.3,bootstrap-icons: ^1.10.2,emoji-picker-react: ^4.4.6,formik: ^2.2.9,keen-slider: ^6.8.3, prop-types: ^15.8.1, react: ^18.2.0, react-dom: ^18.2.0, react-jigsaw-puzzle: ^1.0.4, react-redux: ^8.0.5, react-responsive: ^9.0.2, react-router-dom: ^6.4.3, react-toastify: 9.1.1, sass: ^1.56.1, socket.io-client: ^4.5.4, sweetalert2: ^11.4.8, yup: ^0.32.11
 
-Instrucciones:
+***Instrucciones:***
 
 - Ir a la carpeta Frontend.
 - Instalar dependencias con ```npm i```
@@ -56,28 +61,43 @@ Instrucciones:
 
 ### API
 
-Documentación: 
 
-[Api Documentación](https://docs.google.com/document/d/1l0BrUa3j5a0D44qTp73qbrOP9SrjIC4r4CxgGI82Vnc/edit#heading=h.ctjmeoh2jl80)
+***Documentación: ***
 
-Instrucciones:
+[Api Documentación Aquí](https://docs.google.com/document/d/1l0BrUa3j5a0D44qTp73qbrOP9SrjIC4r4CxgGI82Vnc/edit#heading=h.ctjmeoh2jl80)
+<br/>
 
-- Instalar dependencias con ```npm i```
+***Instrucciones:***
 
-- Crear una cuenta en cloudinary y obtener el cloud_name, cloud_api y cloud_api_secret de la cuenta.
+  - Instalar dependencias con ```npm i```
 
-- Crear un archivo .env con las siguientes variables:
+  - Crear una cuenta en cloudinary y obtener el cloud_name, cloud_api y cloud_api_secret de la cuenta.
 
-````MONGO_URI="nombre de la base de datos mongoDB"
-PORT="8000"
-JWT_SECRET= el secret elegido para el token.
-CLOUD_NAME= cloud name de la cuenta de cloudinary.
-CLOUD_API_KEY= api key de la cuenta de cloudinary.
-CLOUD_API_SECRET= api secret de la cuenta de cloudinary.
-ORIGINS_ALLOWED= Las webs desde donde haremos las llamadas a la api. Ej: "http://localhost:5173/, http://127.0.0.1:5173, http://localhost:5173,http://localhost:5174/, http://127.0.0.1:5174, http://localhost:5174"```
-- Correr el servidor con ```npm run dev``` o ```npm start```
+  - Crear un archivo .env con las siguientes variables:
 
-## Deploy
+  ```MONGO_URI="nombre de la base de datos mongoDB"
+  PORT="8000"
+  JWT_SECRET= el secret elegido para el token.
+  CLOUD_NAME= cloud name de la cuenta de cloudinary.
+  CLOUD_API_KEY= api key de la cuenta de cloudinary.
+  CLOUD_API_SECRET= api secret de la cuenta de cloudinary.
+  ORIGINS_ALLOWED= Las webs desde donde haremos las llamadas a la api.
+  (Ej: "http://localhost:5173/, http://127.0.0.1:5173, http://localhost:5173,http://localhost:5174/, http://127.0.0.1:5174,   http://localhost:5174")
+  ```
+  
+  - Correr el servidor con ```npm run dev``` o ```npm start```
+<br/>
+<br/>
+
+
+## Diseño
+
+Puedes encontrar el diseño completo de esta web [AQUI](https://www.figma.com/file/Y8CsQ39oL4ZzU4uoH6h9CQ/Ludens-No-Country---S5-14?node-id=33%3A962&t=IBCBgGb4d4yUs1Ev-0)
+Puedes encontrar el PROTOTIPO del diseño de esta web en [AQUI](https://www.figma.com/proto/Y8CsQ39oL4ZzU4uoH6h9CQ/Ludens-No-Country---S5-14?node-id=1029%3A10568&scaling=min-zoom&page-id=33%3A962&starting-point-node-id=1029%3A10568&show-proto-sidebar=1)
+
+
+## Deploy 📋
+
 
 Puedes encontrar nuestra API en el siguiente link: [https://ludensapi.vercel.app](https://ludensapi.vercel.app)
 <br/><br/>
@@ -85,42 +105,45 @@ Puedes encontrar nuestra WEB en el siguiente link: [https://ludens-two.vercel.ap
 
 <br/><br/>
 
+
 # Equipo
 
 </br>
 
 ## Team Leader 🚀
 
-### Hernan Emanuel Reyes : [LinkedIn]() | [GitHub]() | [Portfolio]()
+### Hernan Emanuel Reyes : [Linkedin]() | [GitHub]() | [Portfolio]()
 
 </br>
 
 ## UX
 
-### Kevin Grassi [LinkedIn]() | [GitHub]() | [Portfolio]()
+### Kevin Grassi [Linkedin]() | [Behance]() | [Portfolio]()
 
-### Christian Sotelo [LinkedIn]() | [GitHub]() | [Portfolio]()
+### Christian Sotelo [Linkedin]() | [Behance]() | [Portfolio]()
 
+</br>
 
 ## Front - End 🚀
 
-### Maria Bracho Villanueva [LinkedIn]() | [GitHub]() | [Portfolio]()
+### Maria Bracho Villanueva [Linkedin]() | [GitHub]() | [Portfolio]()
 
-### Emanuel Capo [LinkedIn]() | [GitHub]() | [Portfolio]()
+### Emanuel Capo [Linkedin]() | [GitHub]() | [Portfolio]()
 
-### Juan Carracedo [LinkedIn]() | [GitHub]() | [Portfolio]()
+### Juan Carracedo [Linkedin]() | [GitHub]() | [Portfolio]()
 
-### Jhonatan Poblet: [LinkedIn]() | [GitHub]() | [Portfolio]()
+### Jhonatan Poblet: [Linkedin]() | [GitHub]() | [Portfolio]()
 
-### Maria Villen [LinkedIn]() | [GitHub]() | [Portfolio]()
+### Maria Villen [Linkedin]() | [GitHub]() | [Portfolio]()
 
-### Pablo Zalazar [LinkedIn]() | [GitHub]() | [Portfolio]()
+### Pablo Zalazar [Linkedin]() | [GitHub]() | [Portfolio]()
 
+<br/>
 
 ## Back - End 🚀
 
-### Javier Moron: [LinkedIn](https://www.linkedin.com/in/javier-alberto-moron-de-oliveira-a7504218a/) | [GitHub](https://github.com/requin883) | [Portfolio]()
+### Javier Moron: [Linkedin](https://www.linkedin.com/in/javier-alberto-moron-de-oliveira-a7504218a/) | [GitHub](https://github.com/requin883) | [Portfolio]()
 
-### Maria Villen [LinkedIn]() | [GitHub]() | [Portfolio]()
+### Maria Villen [Linkedin]() | [GitHub]() | [Portfolio]()
 
-### Pablo Zalazar [LinkedIn]() | [GitHub]() | [Portfolio]()
+### Pablo Zalazar [Linkedin]() | [GitHub]() | [Portfolio]()
