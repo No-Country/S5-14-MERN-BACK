@@ -6,6 +6,11 @@ const PhraseSchema = mongoose.Schema(
       type: String,
       require: true,
       trim: true
+    },
+    type: {
+      type: String,
+      require: true,
+      trim: true
     }
   },
   {
