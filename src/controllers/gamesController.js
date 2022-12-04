@@ -167,6 +167,7 @@ export const setGameReview = async (req, res) => {
   const { gameId } = req.params;
   let { review } = req.body;
   const { userID } = req;
+
   try {
     const game = await Game.findById(gameId);
     if (!game) {

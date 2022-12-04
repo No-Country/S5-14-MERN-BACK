@@ -2,15 +2,20 @@ import Phrase from "../models/Phrase.js";
 
 export const getPhrases = async (req, res) => {
   try {
-    const phrases = await Phrase.find().select("phrase").sort({ phrase: "asc" });
-    return res.json(phrases);
+    const phrases = await Phrase.find().select("phrase type").sort({ phrase: "asc" });
+    let cotidianas = [];
+    let saludos = [];
+    phrases.forEach(phrase => {
+      phrase.type === "saludos" ? saludos.push(phrase) : cotidianas.push(phrase);
+    });
+    return res.json({ cotidianas, saludos });
   } catch (error) {
     return res.status(500).json({ msg: error.message });
   }
 };
 
 export const createPhrase = async (req, res) => {
-  const { phrase } = req.body;
+  const { phrase, type } = req.body;
   const { admin } = req;
   if (!admin) {
     const error = new Error("Unathorized User");
@@ -22,7 +27,7 @@ export const createPhrase = async (req, res) => {
       const error = new Error("Phrase already exists");
       return res.status(400).json({ msg: error.message });
     }
-    const newPhrase = await new Phrase({ phrase });
+    const newPhrase = await new Phrase({ phrase, type });
     await newPhrase.save();
     return res.json({ phrase });
   } catch (error) {
