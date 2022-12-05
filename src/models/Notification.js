@@ -9,6 +9,9 @@ const notificationSchema = mongoose.Schema(
     message: {
       type: String,
       require: true
+    },
+    imagePath: {
+      type: String
     }
   },
   {

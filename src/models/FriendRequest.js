@@ -9,6 +9,10 @@ const friendRequestSchema = mongoose.Schema(
     reciverId: {
       type: String,
       require: true
+    },
+    notificationId: {
+      type: String,
+      require: true
     }
   },
   {
