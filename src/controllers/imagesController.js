@@ -1,6 +1,7 @@
 import Image from "../models/Image.js";
 import cloudinary from "../helpers/cloudinary.js";
 import { default as deleteFilefromFS } from "../helpers/fileManager.js";
+import { findAllGames } from "./gamesController.js";
 
 export const imageGet = async (req, res) => {
   console.log(req);
@@ -78,8 +79,19 @@ export const addImage = async (req, namePattern, description) => {
       const savedImage = await newImage.save();
       deleteFilefromFS(imagefile, req);
       console.log("saved image", savedImage);
-      return savedImage._id;
+      return { image: { _id: savedImage._id, path: savedImage.path } };
     }
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+};
+
+export const deleteImage = async id => {
+  try {
+    const result = await cloudinary.uploader.destroy(id);
+    console.log(result);
+    return { result };
   } catch (err) {
     console.log(err);
     return err;
