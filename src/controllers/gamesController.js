@@ -1,7 +1,9 @@
 import Game from "../models/Game.js";
 import validateId from "../helpers/idValidator.js";
 import deleteFilefromFS from "../helpers/fileManager.js";
-import { addImage } from "./imagesController.js";
+import { addImage, deleteImage } from "./imagesController.js";
+
+// [GET] Find all Games
 
 export const findAllGames = async (req, res) => {
   try {
@@ -14,6 +16,8 @@ export const findAllGames = async (req, res) => {
     return res.status(500).json({ msg: error.message });
   }
 };
+
+// [GET] Find a Game by Id (params id);
 
 export const findGameById = async (req, res) => {
   const { id } = req.params;
@@ -33,8 +37,10 @@ export const findGameById = async (req, res) => {
   }
 };
 
+// [POST] Create a new game (req.file("image"), req.Body(name(string), description(string), devices (array), audiencies(string), comingSoon (boolean)))
+
 export const createNewGame = async (req, res) => {
-  const { name, description, devices, audiencies, coming_soon } = req.body;
+  const { name, description, devices, audiencies, comingSoon } = req.body;
   const { admin } = req;
 
   const imagefile = req.file?.path;
@@ -71,13 +77,14 @@ export const createNewGame = async (req, res) => {
           description,
           devices,
           audiencies,
-          coming_soon,
-          cover: result
+          comingSoon,
+          cover: result.image._id
         });
 
         const savedGame = await newGame.save();
+        console.log("imagen juego: ", result);
         return res.status(200).json({
-          game: { id: savedGame._id, cover: result.path, name: savedGame.name }
+          game: { id: savedGame._id, cover: result.image.path, name: savedGame.name }
         });
       }
     }
@@ -87,14 +94,23 @@ export const createNewGame = async (req, res) => {
   }
 };
 
+// Modify Game
+
 export const modifyExistingGame = async (req, res) => {
   const { id } = req.params;
-  const { name, description, devices, imagePath, audience } = req.body;
+  const { name, description, devices, comingSoon, audience } = req.body;
   const { admin } = req;
+  const newPathfile = req.file?.path;
 
-  if (!validateId(id)) return res.status(400).json({ msg: "The Id is not a valid ID" });
+  if (!validateId(id)) {
+    if (req.file) await deleteFilefromFS(newPathfile, req);
+    return res.status(400).json({ msg: "The Id is not a valid ID" });
+  }
 
-  if (!admin) return res.status(401).json({ msg: "Unathorized User" });
+  if (!admin) {
+    if (req.file) await deleteFilefromFS(newPathfile, req);
+    return res.status(401).json({ msg: "Unathorized User" });
+  }
 
   try {
     const existingGame = await Game.findById(id);
@@ -102,19 +118,44 @@ export const modifyExistingGame = async (req, res) => {
     if (!existingGame)
       return res.status(400).json({ msg: "There's no registered game with the ID received" });
 
-    //Update the game's information if exists.
+    let newCover;
+    if (req.file) {
+      try {
+        let filename = existingGame.name;
+        if (req.body.name !== existingGame.name) {
+          filename = req.body.name;
+        }
+        let newCover = await addImage(
+          req,
+          `${filename.trim().replace(/:/g, "-").replace(" ", "_")}-cover`,
+          `Foto del juego ${filename}`
+        );
+        console.log("existing game", existingGame);
+        if (newCover) {
+          await deleteImage(existingGame.cover._id);
+          existingGame.cover = newCover.image._id;
+        }
+        // agregar  nueva foto con el nombre modfiicado
+      } catch (err) {
+        console.log(err);
+      }
+    }
 
     if (name) existingGame.name = name;
     if (description) existingGame.description = description;
     if (devices) existingGame.devices = devices;
-    if (imagePath) existingGame.imagePath = imagePath;
     if (audience) existingGame.audience = audience;
+    if (comingSoon) existingGame.cominSoon = comingSoon;
 
     const updatedGame = await existingGame.save();
-
-    return res.status(200).json({ game: updatedGame });
+    const answerGame = newCover ? { ...updatedGame, cover: newCover } : updatedGame;
+    console.log("ansergame: ", answerGame);
+    return res.status(200).json({ game: answerGame });
   } catch (error) {
-    return res.status(500).json({ msg: "Sorry, an error occured please try again later" });
+    if (req.file) {
+      await deleteFilefromFS(newPathfile, req);
+    }
+    return res.status(500).json({ msg: error.message });
   }
 };
 
@@ -134,14 +175,15 @@ export const eliminateGame = async (req, res) => {
   try {
     const foundGame = await Game.findById(id);
 
-    if (!foundGame)
+    if (!foundGame) {
       return res.status(404).json({ msg: "The game ID is not associated with an existing game" });
-
-    await Game.deleteById(id);
-
-    return res.status(200).json({
-      game: foundGame
-    });
+    } else {
+      const result = await Game.deleteById(id);
+      if (result) deleteImage(foundGame.cover._id);
+      return res.status(200).json({
+        game: foundGame
+      });
+    }
   } catch (error) {
     return res.status(500).json({ msg: "Sorry, an error occured please try again later" });
   }
