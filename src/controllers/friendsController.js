@@ -27,40 +27,50 @@ export const inviteFriend = async (req, res) => {
       const error = new Error("User not found");
       return res.status(400).json({ msg: error.message });
     }
-    const existsRequest = await FriendRequest.findOne(
-      { emmiter: userID, reciver: friendId } || { emmiter: friendId, reciver: emmiterId }
-    ).select("-createdAt -updatedAt");
+    const user = await User.findById(userID).populate("friendRequests friends");
 
-    if (existsRequest) {
+    if (!user) {
+      const error = new Error("User not have friends request");
+      return res.status(400).json({ msg: error.message });
+    }
+
+    const existsFriendRequest = user.friendRequests.filter(
+      fr =>
+        (fr.emmiterId === userID && fr.reciverId === friendId) ||
+        (fr.emmiterId === friendId && fr.reciverId === userID)
+    );
+
+    if (existsFriendRequest.length > 0) {
       const error = new Error(
-        existsRequest.emmiterId === userID
+        existsFriendRequest[0].emmiterId === userID
           ? `You already sent an invitation to ${newFriend.username}`
           : `You already have an invitation from ${newFriend.username}`
       );
       return res.status(400).json({ msg: error.message });
     }
 
-    const user = await User.findById(userID);
-    const isFriend = user.friends.filter(friend => friend.user.toString() === friendId);
+    const isFriend = user.friends.filter(friend => friend._id.toString() === friendId);
     if (isFriend.length > 0) {
       const error = new Error("User is already your friend");
       return res.status(400).json({ msg: error.message });
     }
 
+    const notification = await new Notification({
+      title: "Solicitud de amistad",
+      message: `${user.username} quiere ser tu amigo`,
+      imagePath: newFriend.avatar
+    });
+
+    newFriend.notifications.push(notification._id);
+
     const friendRequest = await new FriendRequest({
       emmiterId: user._id.toString(),
-      reciverId: newFriend._id.toString()
+      reciverId: newFriend._id.toString(),
+      notificationId: notification._id
     });
 
     newFriend.friendRequests.push(friendRequest);
     user.friendRequests.push(friendRequest);
-
-    const notification = await new Notification({
-      title: "Solicitud de amistad",
-      message: `${user.username} quiere ser tu amigo`
-    });
-
-    newFriend.notifications.push(notification._id);
 
     await notification.save();
     await friendRequest.save();
@@ -143,7 +153,24 @@ export const deleteFriend = async (req, res) => {
 
     await user.save();
     await deletedFriend.save();
-    return res.json({ msg: `Friend deleted` });
+    return res.json(user.friends);
+  } catch (error) {
+    return res.status(500).json({ msg: error.message });
+  }
+};
+
+export const getFriendRequest = async (req, res) => {
+  const { notificationId } = req.params;
+  const { userID } = req;
+
+  try {
+    const friendRequest = await FriendRequest.findOne({ notificationId }, "-createdAt -updatedAt");
+
+    if (!friendRequest) {
+      const error = new Error("FriendRequests not exists");
+      return res.status(400).json({ msg: error.message });
+    }
+    return res.status(200).json(friendRequest);
   } catch (error) {
     return res.status(500).json({ msg: error.message });
   }

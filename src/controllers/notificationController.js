@@ -18,7 +18,7 @@ export const getNotifications = async (req, res) => {
 
 export const createNotification = async (req, res) => {
   const { userID } = req;
-  const { title, message } = req.body;
+  const { title, message, friendId } = req.body;
   try {
     const notification = await new Notification({ title, message });
     const user = await User.findById(userID);
@@ -35,17 +35,20 @@ export const deleteNotification = async (req, res) => {
   const { notificationId } = req.params;
   const { userID } = req;
   try {
+    const user = await User.findById(userID).populate("notifications");
+    console.log(user.notifications);
+    user.notifications = user.notifications.filter(
+      notification => notification._id.toString() !== notificationId
+    );
+
     const notification = await Notification.findByIdAndDelete(notificationId);
     if (!notification) {
       const error = new Error("Notification not exists");
       return res.status(400).json({ msg: error.message });
     }
-    const user = await User.findById(userID);
-    user.notifications = user.notifications.filter(
-      notification => notification._id.toString() !== notificationId
-    );
+
     await user.save();
-    return res.json({ msg: "Notification deleted" });
+    return res.json(user.notifications);
   } catch (error) {
     return res.status(500).json({ msg: error.message });
   }

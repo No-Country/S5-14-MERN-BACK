@@ -4,7 +4,8 @@ import {
   getFriends,
   inviteFriend,
   responseInvitation,
-  deleteFriend
+  deleteFriend,
+  getFriendRequest
 } from "../controllers/friendsController.js";
 
 const friendsRouter = express.Router();
@@ -14,5 +15,6 @@ friendsRouter.route("/invite/:friendId").post(checkAuth, inviteFriend);
 friendsRouter.route("/accept/:friendId").post(checkAuth, responseInvitation);
 friendsRouter.route("/refuse/:friendId").post(checkAuth, responseInvitation);
 friendsRouter.route("/delete/:friendId").delete(checkAuth, deleteFriend);
+friendsRouter.route("/friendRequest/:notificationId").get(checkAuth, getFriendRequest);
 
 export default friendsRouter;
