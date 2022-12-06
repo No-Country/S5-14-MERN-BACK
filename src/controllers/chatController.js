@@ -59,6 +59,7 @@ export const deletePhrase = async (req, res) => {
 export const getChat = async (req, res) => {
   const { userId } = req.params;
   const { userID } = req;
+
   try {
     const friend = await User.findById(userId);
     if (!friend) {
@@ -73,7 +74,8 @@ export const getChat = async (req, res) => {
           (chat.firstUserId.toString() === userId && chat.secondUserId.toString() === userID)
       );
       if (currentChat.length < 1) {
-        const newChat = new Chat({ firstUserId: userID, secondUserId: userId });
+        const room = Date.now() + Math.floor(Math.random() * 1000);
+        const newChat = new Chat({ firstUserId: userID, secondUserId: userId, room });
         user.chatHistories.push(newChat._id);
         friend.chatHistories.push(newChat._id);
         await newChat.save();
