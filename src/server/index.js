@@ -25,7 +25,14 @@ server.use(express.json());
 server.use(express.urlencoded({ extended: false }));
 
 // server.use(cors);
-server.use(cors());
+server.use(
+  cors({
+    origin: "https://ludens-two.vercel.app",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    preflightContinue: false,
+    optionsSuccessStatus: 204
+  })
+);
 connectDB();
 
 const APP_KEY = process.env.VITE_key;
