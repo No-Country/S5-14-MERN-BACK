@@ -27,7 +27,7 @@ server.use(express.urlencoded({ extended: false }));
 server.use(
   cors({
     origin: ["https://ludens-two.vercel.app", "https://ludens-two.vercel.app/"],
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE, OPTIONS, PATCH",
     preflightContinue: false,
     optionsSuccessStatus: 204
   })
