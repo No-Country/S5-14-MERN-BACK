@@ -24,16 +24,15 @@ export const findGameById = async (req, res) => {
 
   if (!validateId(id)) return res.status(400).json({ msg: "The Id is not a valid ID" });
   try {
-    const foundGame = await Game.findById(id, "-createdAt -updatedAt").populate(
-      "cover",
-      "-createdAt -updatedAt"
-    );
+    const foundGame = await Game.findById(id, "-createdAt -updatedAt").populate("cover");
+    console.log(foundGame);
 
     if (!foundGame) return res.status(404).json({ msg: "Game not found" });
 
     return res.status(200).json({ game: foundGame });
   } catch (error) {
-    return res.status(500).json({ msg: "We had an error please try again later" });
+    console.log(error);
+    return res.status(500).json({ msg: error.message });
   }
 };
 
