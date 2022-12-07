@@ -81,10 +81,8 @@ export const getChat = async (req, res) => {
         await newChat.save();
         await user.save();
         await friend.save();
-        console.log("1");
         return res.json(newChat.messages);
       }
-      console.log("2");
       return res.json(currentChat[0]);
     }
     return res.send("error");

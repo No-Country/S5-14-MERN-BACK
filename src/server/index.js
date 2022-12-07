@@ -12,9 +12,11 @@ import friendsRouter from "../routes/friendsRouter.js";
 import favoritesRouter from "../routes/favoritesRouter.js";
 import notificationRouter from "../routes/notificationsRouter.js";
 import imagesRouter from "../routes/imagesRouter.js";
+import Pusher from "pusher";
 
 // Node 14 path import
 import path from "path";
+import checkAuth from "../middlewares/checkAuth.js";
 const __dirname = path.resolve();
 
 const server = express();
@@ -24,6 +26,28 @@ server.use(express.urlencoded({ extended: false }));
 
 server.use(cors);
 connectDB();
+
+const APP_KEY = process.env.VITE_key;
+const APP_CLUSTER = process.env.VITE_cluster;
+const APP_ID = process.env.VITE_app_id;
+const APP_SECRET = process.env.VITE_secret;
+
+const pusher = new Pusher({
+  appId: APP_ID,
+  key: APP_KEY,
+  secret: APP_SECRET,
+  cluster: APP_CLUSTER,
+  useTLS: true
+});
+
+// server.post("api/message", (req, res) => {
+//   console.log("first");
+//   console.log(payload);
+//   const payload = req.body;
+//   pusher.trigger(req.query.channel, "message", payload);
+//   res.send(payload);
+//   // pusher.trigger(channel_name, event,  {message => 'hello world'});
+// });
 
 server.use(helmet({ crossOriginResourcePolicy: false }));
 server.use("/api/users", usersRouter);
@@ -35,6 +59,13 @@ server.use("/api/chat", chatRouter);
 server.use("/api/favorites", favoritesRouter);
 server.use("/api/notifications", notificationRouter);
 server.use("api/images", imagesRouter);
+
+server.route("/api/message").post((req, res) => {
+  const payload = req.body;
+  pusher.trigger(req.query.channel, "message", payload);
+  res.send(payload);
+  // pusher.trigger(channel_name, event,  {message => 'hello world'});
+});
 
 // Images Fixed Route
 server.use("/images", express.static(path.join(__dirname, "images")));
