@@ -23,7 +23,6 @@ const server = express();
 server.use(morgan("dev"));
 server.use(express.json());
 server.use(express.urlencoded({ extended: false }));
-
 // server.use(cors);
 server.use(
   cors({
@@ -33,6 +32,11 @@ server.use(
     optionsSuccessStatus: 204
   })
 );
+
+server.options("/*", (_, res) => {
+  res.sendStatus(200);
+});
+
 connectDB();
 
 const APP_KEY = process.env.VITE_key;
@@ -58,9 +62,7 @@ const pusher = new Pusher({
 // });
 
 server.use(helmet({ crossOriginResourcePolicy: false }));
-server.options("/*", (_, res) => {
-  res.sendStatus(200);
-});
+
 server.use("/api/users", usersRouter);
 server.use("/api/auth", authRouter);
 server.use("/api/games", gameRoutes);
