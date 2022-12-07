@@ -16,6 +16,7 @@ import Pusher from "pusher";
 
 // Node 14 path import
 import path from "path";
+import checkAuth from "../middlewares/checkAuth.js";
 const __dirname = path.resolve();
 
 const server = express();
@@ -39,13 +40,14 @@ const pusher = new Pusher({
   useTLS: true
 });
 
-server.post("api/message", (req, res) => {
-  const payload = req.body;
-  pusher.trigger(req.query.channel, "message", payload);
-  console.log(payload);
-  res.send(payload);
-  // pusher.trigger(channel_name, event,  {message => 'hello world'});
-});
+// server.post("api/message", (req, res) => {
+//   console.log("first");
+//   console.log(payload);
+//   const payload = req.body;
+//   pusher.trigger(req.query.channel, "message", payload);
+//   res.send(payload);
+//   // pusher.trigger(channel_name, event,  {message => 'hello world'});
+// });
 
 server.use(helmet({ crossOriginResourcePolicy: false }));
 server.use("/api/users", usersRouter);
@@ -57,6 +59,13 @@ server.use("/api/chat", chatRouter);
 server.use("/api/favorites", favoritesRouter);
 server.use("/api/notifications", notificationRouter);
 server.use("api/images", imagesRouter);
+
+server.route("/api/message").post((req, res) => {
+  const payload = req.body;
+  pusher.trigger(req.query.channel, "message", payload);
+  res.send(payload);
+  // pusher.trigger(channel_name, event,  {message => 'hello world'});
+});
 
 // Images Fixed Route
 server.use("/images", express.static(path.join(__dirname, "images")));
