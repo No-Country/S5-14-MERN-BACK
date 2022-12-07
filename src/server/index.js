@@ -24,7 +24,8 @@ server.use(morgan("dev"));
 server.use(express.json());
 server.use(express.urlencoded({ extended: false }));
 
-server.use(cors);
+// server.use(cors);
+server.use(cors());
 connectDB();
 
 const APP_KEY = process.env.VITE_key;
