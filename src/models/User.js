@@ -51,6 +51,13 @@ const userSchema = mongoose.Schema(
         type: mongoose.Schema.Types.ObjectId,
         ref: "Notification"
       }
+    ],
+    chatHistories: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Chat",
+        default: []
+      }
     ]
   },
   {
