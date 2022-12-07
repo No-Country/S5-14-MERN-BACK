@@ -7,6 +7,10 @@ const Message = mongoose.Schema(
     },
     message: {
       type: String
+    },
+    icon: {
+      type: Boolean,
+      default: false
     }
   },
   { _id: false }

@@ -95,7 +95,7 @@ export const getChat = async (req, res) => {
 
 export const setChat = async (req, res) => {
   const { chatId } = req.params;
-  const { message } = req.body;
+  const { message, icon } = req.body;
   const { userID } = req;
   try {
     const currentChat = await Chat.findById(chatId);
@@ -103,7 +103,7 @@ export const setChat = async (req, res) => {
       const error = new Error("Chat not exists");
       return res.status(403).json({ msg: error.message });
     }
-    currentChat.messages.push({ id: userID, message });
+    currentChat.messages.push({ id: userID, message, icon });
     await currentChat.save();
     return res.json(currentChat);
   } catch (error) {
