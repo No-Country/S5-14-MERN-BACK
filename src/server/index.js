@@ -12,6 +12,7 @@ import friendsRouter from "../routes/friendsRouter.js";
 import favoritesRouter from "../routes/favoritesRouter.js";
 import notificationRouter from "../routes/notificationsRouter.js";
 import imagesRouter from "../routes/imagesRouter.js";
+import Pusher from "pusher";
 
 // Node 14 path import
 import path from "path";
@@ -24,6 +25,27 @@ server.use(express.urlencoded({ extended: false }));
 
 server.use(cors);
 connectDB();
+
+const APP_KEY = process.env.VITE_key;
+const APP_CLUSTER = process.env.VITE_cluster;
+const APP_ID = process.env.VITE_app_id;
+const APP_SECRET = process.env.VITE_secret;
+
+const pusher = new Pusher({
+  appId: APP_ID,
+  key: APP_KEY,
+  secret: APP_SECRET,
+  cluster: APP_CLUSTER,
+  useTLS: true
+});
+
+server.post("api/message", (req, res) => {
+  const payload = req.body;
+  pusher.trigger(req.query.channel, "message", payload);
+  console.log(payload);
+  res.send(payload);
+  // pusher.trigger(channel_name, event,  {message => 'hello world'});
+});
 
 server.use(helmet({ crossOriginResourcePolicy: false }));
 server.use("/api/users", usersRouter);
