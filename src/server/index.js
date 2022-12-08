@@ -81,7 +81,7 @@ server.route("/api/message").post((req, res) => {
   return res.status(200).json(payload);
   // pusher.trigger(channel_name, event,  {message => 'hello world'});
 });
-server.use("/images", express.static(path.join(__dirname, "images")));
+server.use("/images", express.static(path.join(__dirname, "src/images")));
 server.use(express.static(path.join(__dirname, "dist")));
 
 server.use("/", (req, res) => {
