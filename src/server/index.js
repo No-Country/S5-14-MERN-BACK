@@ -82,15 +82,12 @@ server.route("/api/message").post((req, res) => {
   // pusher.trigger(channel_name, event,  {message => 'hello world'});
 });
 server.use("/images", express.static(path.join(__dirname, "src/images")));
-server.use(express.static(path.join(__dirname, "dist")));
+// server.use(express.static(path.join(__dirname, "dist")));
 
-server.use("/assets/*", (req, res) => {
-  res.sendFile(path.join(__dirname, "src/assets/*"));
-});
-server.use("/", (req, res) => {
-  console.log(req);
-  res.sendFile(path.join(__dirname, "dist/index.html"));
-});
+// server.use("/", (req, res) => {
+//   console.log(req);
+//   res.sendFile(path.join(__dirname, "dist/index.html"));
+// });
 
 // Images Fixed Route
 
