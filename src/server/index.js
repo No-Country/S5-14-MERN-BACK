@@ -30,6 +30,7 @@ server.use(
     origin: ["https://ludens-two.vercel.app", "https://ludens-two.vercel.app/"],
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE, OPTIONS, PATCH",
     preflightContinue: false,
+    credentials: true,
     optionsSuccessStatus: 200
   })
 );
