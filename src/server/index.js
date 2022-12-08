@@ -64,6 +64,12 @@ const pusher = new Pusher({
 // });
 
 server.use(helmet({ crossOriginResourcePolicy: false }));
+// React SPA router problems fix
+server.use(express.static(path.join(__dirname, "build")));
+
+server.get("/*", function (req, res) {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
 
 server.use("/api/users", usersRouter);
 server.use("/api/auth", authRouter);
@@ -80,13 +86,6 @@ server.route("/api/message").post((req, res) => {
   pusher.trigger(req.query.channel, "message", payload);
   return res.status(200).json(payload);
   // pusher.trigger(channel_name, event,  {message => 'hello world'});
-});
-
-// React SPA router problems fix
-server.use(express.static(path.join(__dirname, "build")));
-
-server.get("/*", function (req, res) {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
 // Images Fixed Route
