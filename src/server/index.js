@@ -82,6 +82,13 @@ server.route("/api/message").post((req, res) => {
   // pusher.trigger(channel_name, event,  {message => 'hello world'});
 });
 
+// React SPA router problems fix
+server.use(express.static(path.join(__dirname, "build")));
+
+server.get("/*", function (req, res) {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
+
 // Images Fixed Route
 server.use("/images", express.static(path.join(__dirname, "images")));
 
