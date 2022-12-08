@@ -2,7 +2,8 @@ import express from "express";
 import morgan from "morgan";
 import helmet from "helmet";
 import connectDB from "../config/db.js";
-import cors from "../middlewares/cors.js";
+import cors from "cors";
+//  import cors from "../middlewares/cors.js";
 import usersRouter from "../routes/userRouter.js";
 import authRouter from "../routes/authRouter.js";
 import gameRoutes from "../routes/gamesRouter.js";
@@ -29,7 +30,7 @@ server.use(
     origin: ["https://ludens-two.vercel.app", "https://ludens-two.vercel.app/"],
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE, OPTIONS, PATCH",
     preflightContinue: false,
-    optionsSuccessStatus: 204
+    optionsSuccessStatus: 200
   })
 );
 
