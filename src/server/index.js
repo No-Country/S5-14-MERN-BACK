@@ -84,12 +84,15 @@ server.route("/api/message").post((req, res) => {
 
 server.use(express.static(path.join(__dirname, "dist")));
 
+server.use("/assets/*", (req, res) => {
+  console.log(req);
+  res.sendFile(path.join(__dirname, "dist/assets"));
+});
 server.use("/", (req, res) => {
   console.log(req);
   res.sendFile(path.join(__dirname, "dist/index.html"));
 });
 
 // Images Fixed Route
-server.use("/images", express.static(path.join(__dirname, "dist/images")));
-
+server.use("/images", express.static(path.join(__dirname, "images")));
 export default server;
