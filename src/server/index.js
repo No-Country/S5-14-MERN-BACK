@@ -64,12 +64,6 @@ const pusher = new Pusher({
 // });
 
 server.use(helmet({ crossOriginResourcePolicy: false }));
-// React SPA router problems fix
-server.use(express.static(path.join(__dirname, "build")));
-
-server.get("/*", function (req, res) {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
-});
 
 server.use("/api/users", usersRouter);
 server.use("/api/auth", authRouter);
