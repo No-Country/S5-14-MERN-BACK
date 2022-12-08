@@ -90,6 +90,6 @@ server.use("/", (req, res) => {
 });
 
 // Images Fixed Route
-server.use("/images", express.static(path.join(__dirname, "images")));
+server.use("/images", express.static(path.join(__dirname, "dist/images")));
 
 export default server;
