@@ -65,9 +65,9 @@ const pusher = new Pusher({
 
 server.use(helmet({ crossOriginResourcePolicy: false }));
 
-app.use(express.static(path.join(__dirname, "build")));
+server.use(express.static(path.join(__dirname, "build")));
 
-app.use("/", (req, res) => {
+server.use("/", (req, res) => {
   res.sendFile(path.join(__dirname, "build/index.html"));
 });
 
