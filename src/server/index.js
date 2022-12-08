@@ -65,12 +65,6 @@ const pusher = new Pusher({
 
 server.use(helmet({ crossOriginResourcePolicy: false }));
 
-server.use(express.static(path.join(__dirname, "build")));
-
-server.use("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "build/index.html"));
-});
-
 server.use("/api/users", usersRouter);
 server.use("/api/auth", authRouter);
 server.use("/api/games", gameRoutes);
