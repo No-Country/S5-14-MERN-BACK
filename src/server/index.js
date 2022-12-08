@@ -85,7 +85,7 @@ server.use("/images", express.static(path.join(__dirname, "images")));
 server.use(express.static(path.join(__dirname, "dist")));
 server.use(express.static(path.join(__dirname, "dist/assets")));
 server.use("/assets/*", (req, res) => {
-  res.sendFile(path.join(__dirname, "/assets"));
+  res.sendFile(path.join(__dirname, "dist/assets"));
 });
 
 server.use("/", (req, res) => {
