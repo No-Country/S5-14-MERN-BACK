@@ -83,7 +83,7 @@ server.route("/api/message").post((req, res) => {
 });
 server.use("/images", express.static(path.join(__dirname, "images")));
 server.use(express.static(path.join(__dirname, "dist")));
-
+server.use(express.static(path.join(__dirname, "assets")));
 server.use("/assets/*", (req, res) => {
   res.sendFile(path.join(__dirname, "/assets"));
 });
