@@ -65,6 +65,13 @@ const pusher = new Pusher({
 
 server.use(helmet({ crossOriginResourcePolicy: false }));
 
+server.use(express.static(path.join(__dirname, "dist")));
+
+server.use("/", (req, res) => {
+  console.log(req);
+  res.sendFile(path.join(__dirname, "dist/index.html"));
+});
+
 server.use("/api/users", usersRouter);
 server.use("/api/auth", authRouter);
 server.use("/api/games", gameRoutes);
@@ -82,12 +89,6 @@ server.route("/api/message").post((req, res) => {
   // pusher.trigger(channel_name, event,  {message => 'hello world'});
 });
 server.use("/images", express.static(path.join(__dirname, "src/images")));
-// server.use(express.static(path.join(__dirname, "dist")));
-
-// server.use("/", (req, res) => {
-//   console.log(req);
-//   res.sendFile(path.join(__dirname, "dist/index.html"));
-// });
 
 // Images Fixed Route
 
