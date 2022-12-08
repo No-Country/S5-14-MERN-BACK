@@ -2,9 +2,13 @@ import multer from "multer";
 // Node 14 path import
 import path from "path";
 const __dirname = path.resolve();
+import fs from "fs";
 
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
+    if (!fs.existsSync("./src/images")) {
+      fs.mkdirSync("./src/images", { recursive: true });
+    }
     callback(null, path.join(__dirname, "src/images"));
   },
   filename: (req, file, callback) => {
