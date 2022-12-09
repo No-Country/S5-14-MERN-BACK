@@ -37,6 +37,6 @@ server.use("/api/notifications", notificationRouter);
 server.use("api/images", imagesRouter);
 
 // Images Fixed Route
-server.use("/images", express.static(path.join(__dirname, "images")));
+server.use("/images", express.static(path.join(__dirname, "/src/images")));
 
 export default server;
