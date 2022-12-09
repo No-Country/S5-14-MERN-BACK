@@ -39,7 +39,7 @@ export const findGameById = async (req, res) => {
 // [POST] Create a new game (req.file("image"), req.Body(name(string), description(string), devices (array), audiencies(string), comingSoon (boolean)))
 
 export const createNewGame = async (req, res) => {
-  const { name, description, devices, audiencies, comingSoon } = req.body;
+  const { name, description, devices, folder, audiencies, comingSoon } = req.body;
   const { admin } = req;
 
   const imagefile = req.file?.path;
@@ -77,6 +77,7 @@ export const createNewGame = async (req, res) => {
           devices,
           audiencies,
           comingSoon,
+          folder: folder || null,
           cover: result.image._id
         });
 
@@ -97,7 +98,7 @@ export const createNewGame = async (req, res) => {
 
 export const modifyExistingGame = async (req, res) => {
   const { id } = req.params;
-  const { name, description, devices, comingSoon, audience } = req.body;
+  const { name, description, devices, folder, comingSoon, audience } = req.body;
   const { admin } = req;
   const newPathfile = req.file?.path;
 
@@ -145,6 +146,7 @@ export const modifyExistingGame = async (req, res) => {
     if (devices) existingGame.devices = devices;
     if (audience) existingGame.audience = audience;
     if (comingSoon) existingGame.cominSoon = comingSoon;
+    if (folder) existingGame.folder = folder;
 
     const updatedGame = await existingGame.save();
     const answerGame = newCover ? { ...updatedGame, cover: newCover } : updatedGame;

@@ -10,8 +10,12 @@ const cors = (req, res, next) => {
 
   res.setHeader(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
+    "S-CSRF-Token, Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
   );
+
+  if (req.method === "OPTIONS") {
+    res.status(200).end();
+  }
 
   return next();
 };
