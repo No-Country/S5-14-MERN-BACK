@@ -89,6 +89,5 @@ server.route("/api/message").post((req, res) => {
 });
 
 // Images Fixed Route
-server.use("/images", express.static(path.join(__dirname, "/src/images")));
-
+server.use("/images", express.static(path.join(__dirname, "/images")));
 export default server;

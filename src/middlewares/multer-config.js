@@ -5,8 +5,8 @@ const __dirname = path.resolve();
 
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
-    console.log(__dirname + "/src/images");
-    callback(null, path.join(__dirname, "/src/images"));
+    console.log(__dirname + "/images");
+    callback(null, path.join(__dirname, "/images"));
   },
   filename: (req, file, callback) => {
     const name = file.originalname.split(" ").join("_");
