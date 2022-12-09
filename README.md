@@ -1,5 +1,5 @@
 <h1 align = "center"> LUDENS </h1>
-<p align = "center"> <img src = "https://i85.servimg.com/u/f85/19/88/52/56/logolu10.png" /> </p>
+<p align = "center"> <img src = "https://res.cloudinary.com/ddg3a37dp/image/upload/v1670579410/llogo_gd6skt.gif" /></p>
 <p align = "center"> Ludens es un sitio web de juegos educativos para niños. En nuestra palataforma aprendes jugando con tus amigos con un sistema de mensajes predefinido, apostando por la seguridad. Desafía a tus amigos, comparte tu ranking, agrega a favoritos y mucho mas.</p>
 
 
@@ -24,8 +24,8 @@
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
 ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
 ![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
-![Socket.io](https://img.shields.io/badge/Socket.io-black?style=for-the-badge&logo=socket.io&badgeColor=010101)
-[![CLOUDINARY](https://img.shields.io/badge/CLOUDINARY-gray?style=flat&logo=https://res.cloudinary.com/cloudinary-marketing/image/upload/c_scale,w_45/creative_source/Logo/Cloud%20Glyph/cloudinary_cloud_glyph_regular.svg&logoColor=3448C5&logoWidth=50&link=https://cloudinary.com/)](https://cloudinary.com/)
+![CLOUDINARY](https://img.shields.io/badge/Cloudinary-100000?style=for-the-badge&logo=Cloudinary&logoColor=7DDAF4&labelColor=black&color=black)
+![PusherChannerls](https://img.shields.io/badge/PusherChannels-100000?style=for-the-badge&logo=Pusher&logoColor=7DDAF4&labelColor=black&color=black)
 ![Jira](https://img.shields.io/badge/jira-%230A0FFF.svg?style=for-the-badge&logo=jira&logoColor=white)
 ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
 ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
@@ -94,7 +94,11 @@ emotion/react:^11.10.5 ,emotion/styled: 11.10.5, mui/material:^5.10.14,reduxjs/t
 
 Puedes encontrar el diseño completo de esta web [AQUI](https://www.figma.com/file/Y8CsQ39oL4ZzU4uoH6h9CQ/Ludens-No-Country---S5-14?node-id=33%3A962&t=IBCBgGb4d4yUs1Ev-0)
 Puedes encontrar el PROTOTIPO del diseño de esta web en [AQUI](https://www.figma.com/proto/Y8CsQ39oL4ZzU4uoH6h9CQ/Ludens-No-Country---S5-14?node-id=1029%3A10568&scaling=min-zoom&page-id=33%3A962&starting-point-node-id=1029%3A10568&show-proto-sidebar=1)
-
+Puedes encontrar vídeos sobre la aplicación:
+</br>
+[Vídeo promocional](https://youtu.be/uQSSKS88s94) 
+</br>
+[Vídeo con todas las funcionalidades](https://youtu.be/tak2Cooawf4)
 
 ## Deploy 📋
 
@@ -112,38 +116,34 @@ Puedes encontrar nuestra WEB en el siguiente link: [https://ludens-two.vercel.ap
 
 ## Team Leader 🚀
 
-### Hernan Emanuel Reyes : [Linkedin]() | [GitHub]() | [Portfolio]()
+### Hernan Emanuel Reyes 
 
 </br>
 
 ## UX
 
-### Kevin Grassi [Linkedin]() | [Behance]() | [Portfolio]()
+### Kevin Grassi 
 
-### Christian Sotelo [Linkedin]() | [Behance]() | [Portfolio]()
+### Christian Sotelo
 
 </br>
 
 ## Front - End 🚀
 
-### Maria Bracho Villanueva [Linkedin]() | [GitHub]() | [Portfolio]()
+### Maria Bracho Villanueva 
 
-### Emanuel Capo [Linkedin]() | [GitHub]() | [Portfolio]()
+### Emanuel Capo 
 
-### Juan Carracedo [Linkedin]() | [GitHub]() | [Portfolio]()
+### Juan Carracedo 
 
-### Jhonatan Poblet: [Linkedin]() | [GitHub]() | [Portfolio]()
-
-### Maria Villen [Linkedin]() | [GitHub]() | [Portfolio]()
-
-### Pablo Zalazar [Linkedin]() | [GitHub]() | [Portfolio]()
+### Jhonatan Poblet
 
 <br/>
 
-## Back - End 🚀
+## FullStack 🚀
 
-### Javier Moron: [Linkedin](https://www.linkedin.com/in/javier-alberto-moron-de-oliveira-a7504218a/) | [GitHub](https://github.com/requin883) | [Portfolio]()
+### Javier Moron: [Linkedin](https://www.linkedin.com/in/javier-alberto-moron-de-oliveira-a7504218a/) | [GitHub](https://github.com/requin883)
 
-### Maria Villen [Linkedin]() | [GitHub]() | [Portfolio]()
+### Maria Villen [Linkedin](https://www.linkedin.com/in/maria-villen/) | [GitHub](https://github.com/MariaVillen)
 
-### Pablo Zalazar [Linkedin]() | [GitHub]() | [Portfolio]()
+### Pablo Zalazar
