@@ -1,5 +1,5 @@
 <h1 align = "center"> LUDENS </h1>
-<p align = "center"> <img src = "https://i85.servimg.com/u/f85/19/88/52/56/logolu10.png" /> </p>
+<p align = "center"> <img src = "https://res.cloudinary.com/ddg3a37dp/image/upload/v1670579410/llogo_gd6skt.gif" /></p>
 <p align = "center"> Ludens es un sitio web de juegos educativos para niños. En nuestra palataforma aprendes jugando con tus amigos con un sistema de mensajes predefinido, apostando por la seguridad. Desafía a tus amigos, comparte tu ranking, agrega a favoritos y mucho mas.</p>
 
 
@@ -95,7 +95,9 @@ emotion/react:^11.10.5 ,emotion/styled: 11.10.5, mui/material:^5.10.14,reduxjs/t
 Puedes encontrar el diseño completo de esta web [AQUI](https://www.figma.com/file/Y8CsQ39oL4ZzU4uoH6h9CQ/Ludens-No-Country---S5-14?node-id=33%3A962&t=IBCBgGb4d4yUs1Ev-0)
 Puedes encontrar el PROTOTIPO del diseño de esta web en [AQUI](https://www.figma.com/proto/Y8CsQ39oL4ZzU4uoH6h9CQ/Ludens-No-Country---S5-14?node-id=1029%3A10568&scaling=min-zoom&page-id=33%3A962&starting-point-node-id=1029%3A10568&show-proto-sidebar=1)
 Puedes encontrar vídeos sobre la aplicación:
-[Vídeo promocional](https://youtu.be/uQSSKS88s94)
+</br>
+[Vídeo promocional](https://youtu.be/uQSSKS88s94) 
+</br>
 [Vídeo con todas las funcionalidades](https://youtu.be/tak2Cooawf4)
 
 ## Deploy 📋
