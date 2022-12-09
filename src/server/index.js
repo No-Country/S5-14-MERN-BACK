@@ -27,7 +27,7 @@ server.use(express.urlencoded({ extended: false }));
 // server.use(cors);
 server.use(
   cors({
-    origin: "https://ludens-two.vercel.app",
+    origin: ["https://ludens-two.vercel.app", "https://ludens-two.vercel.app/"],
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE, OPTIONS, PATCH",
     preflightContinue: false,
     credentials: true,
@@ -65,11 +65,10 @@ const pusher = new Pusher({
 
 server.use(helmet({ crossOriginResourcePolicy: false }));
 
-server.use(express.static(path.join(__dirname, "dist")));
+app.use(express.static(path.join(__dirname, "build")));
 
-server.use("/", (req, res) => {
-  console.log(req);
-  res.sendFile(path.join(__dirname, "dist/index.html"));
+app.use("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "build/index.html"));
 });
 
 server.use("/api/users", usersRouter);
@@ -88,6 +87,8 @@ server.route("/api/message").post((req, res) => {
   return res.status(200).json(payload);
   // pusher.trigger(channel_name, event,  {message => 'hello world'});
 });
+
+// Images Fixed Route
 server.use("/images", express.static(path.join(__dirname, "/src/images")));
 
 export default server;
