@@ -58,7 +58,7 @@ export const inviteFriend = async (req, res) => {
     const notification = await new Notification({
       title: "Solicitud de amistad",
       message: `${user.username} quiere ser tu amigo`,
-      imagePath: user.avatar
+      imagePath: newFriend.avatar
     });
 
     newFriend.notifications.push(notification._id);
