@@ -146,4 +146,4 @@ Puedes encontrar nuestra WEB en el siguiente link: [https://ludens-two.vercel.ap
 
 ### Maria Villen [Linkedin](https://www.linkedin.com/in/maria-villen/) | [GitHub](https://github.com/MariaVillen)
 
-### Pablo Zalazar
+### Pablo Zalazar [Linkedin](https://www.linkedin.com/in/pablozalazar/) | [GitHub](https://github.com/pablo-zalazar)
